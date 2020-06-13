@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WeatherApp.API.Data;
+using WeatherApp.API.Extensions;
 
 namespace WeatherApp.API
 {
@@ -17,6 +19,14 @@ namespace WeatherApp.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ApplicationData>(conf => 
+            {
+                conf.OWMApiKey = Configuration["OpenWeatherApi:ApiKey"];
+                conf.OWMUrl = Configuration["OpenWeatherApi:Url"];
+            });
+
+            services.AddHttpClient();
+            services.AddApplicationServices();
             services.AddControllers();
         }
 
