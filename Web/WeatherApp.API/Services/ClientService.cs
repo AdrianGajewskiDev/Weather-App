@@ -9,7 +9,6 @@ namespace WeatherApp.API.Services
     {
 
         private readonly IHttpClientFactory _clientFactory;
-        private HttpClient _httpClient;
 
         public ClientService(IHttpClientFactory clientFactory)
         {

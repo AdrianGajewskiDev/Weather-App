@@ -21,10 +21,10 @@ namespace WeatherApp.API.Controllers
         }
 
         //api/weather/currentweather
-        [HttpGet("currentWeather")]
-        public async Task<IActionResult> GetCurrentWeather()
+        [HttpGet("currentWeather/{city}")]
+        public async Task<IActionResult> GetCurrentWeather(string city)
         {
-            var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"q=Gdansk&" + "appid=" +_applicationData.OWMApiKey);
+            var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"q={city}&" + "appid=" +_applicationData.OWMApiKey);
 
             return Ok(response);
         }
