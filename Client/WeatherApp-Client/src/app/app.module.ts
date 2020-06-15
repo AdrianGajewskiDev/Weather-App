@@ -13,15 +13,17 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
 
 import { routes } from "../app/app.routes";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home-component/home-component";
 import { from, fromEventPattern } from "rxjs";
+import { NavbarComponent } from "./navbar/navbar.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,6 +36,7 @@ import { from, fromEventPattern } from "rxjs";
     MatTooltipModule,
     MatDividerModule,
     MatIconModule,
+    MatMenuModule,
     FormsModule,
     MatInputModule,
   ],
