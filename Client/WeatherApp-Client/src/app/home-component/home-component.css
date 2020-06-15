@@ -11,6 +11,7 @@
   min-height: 60vh;
   background-color: #c4c4c4;
   border-radius: 50px;
+  animation: slide 0.5s ease-in;
 }
 
 .header-image {
@@ -59,4 +60,13 @@
 
 .cityid-input mat-icon {
   cursor: pointer !important;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

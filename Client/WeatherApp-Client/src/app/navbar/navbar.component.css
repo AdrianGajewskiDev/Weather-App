@@ -28,8 +28,17 @@
 
 .nav-list li {
   margin-right: 20px;
+  transition: all 0.2s ease-in-out;
 }
 
 .nav-list li a {
   font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.nav-list li:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
 }
