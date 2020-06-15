@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { TooltipPosition } from "@angular/material/tooltip";
-import { Router } from "@angular/router";
+import { DataType } from "../shared/data.type";
 
 @Component({
   selector: "app-home-component",
@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   @Input()
   color: ThemePalette = "primary";
-  form: FormGroup;
   positionOptions: TooltipPosition[] = [
     "after",
     "before",
@@ -28,16 +27,25 @@ export class HomeComponent implements OnInit {
     "right",
   ];
   position = new FormControl(this.positionOptions[0]);
+  form: FormGroup;
 
   private externalURl = " http://bulk.openweathermap.org/sample/";
+  private dataType: DataType = DataType.CityName;
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      cityFormControll: [""],
+      cityName: [""],
+      cityID: [""],
+      cityLongitude: [""],
+      cityLatitude: [""],
     });
   }
 
   goToCityIDs(): void {
     document.location.href = this.externalURl;
+  }
+
+  onSubmit(): void {
+    console.log(this.form);
   }
 }
