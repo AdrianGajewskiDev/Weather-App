@@ -1,1 +1,52 @@
+<div
+  fxLayout="row wrap"
+  fxLayoutGap="32px"
+  fxLayoutAlign="center center"
+  class="container"
+>
+  <mat-card class="card">
+    <mat-card-header class="card-header">
+      <mat-card-title class="title"
+        >Welcome to the weather app !!!</mat-card-title
+      >
+      <mat-card-subtitle class="subtitle">
+        You can check your weather using one of the following ways:
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="form">
+        <mat-form-field class="full-width">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="Type your city name..." />
+        </mat-form-field>
+        <mat-form-field class="cityid-input">
+          <mat-label>City ID</mat-label>
+          <input matInput placeholder="Type your city id..." />
+          <mat-icon (click)="goToCityIDs()" matSuffix>contact_support</mat-icon>
+        </mat-form-field>
 
+        <p class="divider">Or use city goegraphic location:</p>
+        <table class="full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="">
+                <mat-label>Longitude</mat-label>
+                <input matInput />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="">
+                <mat-label>latitude</mat-label>
+                <input matInput />
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <button mat-raised-button [color]="color">Use my location</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="action" fxLayoutAlign="center start">
+      <button mat-raised-button [color]="color">Check</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
