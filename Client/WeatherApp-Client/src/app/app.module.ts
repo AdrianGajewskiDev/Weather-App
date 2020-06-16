@@ -11,9 +11,10 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home-component/home-component";
 import { from, fromEventPattern } from "rxjs";
 import { NavbarComponent } from "./navbar/navbar.component";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavbarComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent, FooterComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

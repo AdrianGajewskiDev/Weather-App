@@ -4,7 +4,7 @@
   fxLayoutAlign="center center"
   class="container"
 >
-  <mat-card class="card" id="cardform">
+  <mat-card [@slideInOut]="state" class="card" id="cardform">
     <mat-card-header class="card-header">
       <mat-card-title class="title"
         >Welcome to the weather app !!!</mat-card-title
@@ -29,7 +29,7 @@
           <input
             [formControl]="form.get('cityID')"
             matInput
-              autocomplete="off"
+            autocomplete="off"
             placeholder="Type your city id..."
           />
           <mat-icon (click)="goToCityIDs()" matSuffix>contact_support</mat-icon>
@@ -41,13 +41,21 @@
             <td>
               <mat-form-field class="">
                 <mat-label>Longitude</mat-label>
-                <input [formControl]="form.get('cityLongitude')" matInput   autocomplete="off"/>
+                <input
+                  [formControl]="form.get('cityLongitude')"
+                  matInput
+                  autocomplete="off"
+                />
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="">
                 <mat-label>Latitude</mat-label>
-                <input [formControl]="form.get('cityLatitude')" matInput   autocomplete="off" />
+                <input
+                  [formControl]="form.get('cityLatitude')"
+                  matInput
+                  autocomplete="off"
+                />
               </mat-form-field>
             </td>
           </tr>

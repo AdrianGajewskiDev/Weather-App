@@ -1,5 +1,5 @@
 .container {
-  min-height: 95vh;
+  min-height: 90vh;
   min-width: 100%;
   background-image: url("../../assets/Images/background.jpg");
   background-size: cover;
@@ -11,7 +11,7 @@
   min-height: 60vh;
   background-color: #c4c4c4;
   border-radius: 50px;
-  animation: slide 0.5s ease-in;
+  transform: translateX(-300%);
 }
 
 .header-image {
@@ -60,13 +60,4 @@
 
 .cityid-input mat-icon {
   cursor: pointer !important;
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(-300%);
-  }
-  100% {
-    transform: translateX(0);
-  }
 }
