@@ -7,12 +7,12 @@
       "applicationUrl": "http://localhost:65485",
       "sslPort": 44377
     }
-  },x 
+  },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": false,
-      "launchUrl": "api/weather/currentweather/Gdansk",
+      "launchBrowser": true,
+      "launchUrl": "api/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

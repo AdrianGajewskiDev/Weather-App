@@ -10,6 +10,7 @@ import {
   transition,
   // ...
 } from "@angular/animations";
+import { WeatherService } from "../shared/services/weather.service";
 
 @Component({
   selector: "app-home-component",
@@ -35,7 +36,10 @@ import {
   ],
 })
 export class HomeComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private weatherService: WeatherService
+  ) {}
 
   @Input() color: ThemePalette = "primary";
   form: FormGroup;
@@ -57,7 +61,5 @@ export class HomeComponent implements OnInit {
     document.location.href = this.externalURl;
   }
 
-  onSubmit(): void {
-    this.state = "slideOut";
-  }
+  onSubmit(): void {}
 }

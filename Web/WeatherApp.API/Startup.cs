@@ -25,6 +25,7 @@ namespace WeatherApp.API
                 conf.OWMUrl = Configuration["OpenWeatherApi:Url"];
             });
 
+            services.AddCors(conf => conf.AddPolicy("DevCorsPolicy", conf => conf.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddHttpClient();
             services.AddApplicationServices();
             services.AddControllers();
@@ -35,14 +36,13 @@ namespace WeatherApp.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("DevCorsPolicy");
             }
 
+
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

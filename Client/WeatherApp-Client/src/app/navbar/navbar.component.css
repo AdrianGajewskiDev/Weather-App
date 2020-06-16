@@ -7,7 +7,7 @@
 }
 
 .navbar h1 {
-  min-width: 20%;
+  min-width: 15%;
 }
 
 .nav-actions {
@@ -37,6 +37,7 @@
 
 .nav-list li a {
   font-size: 1.3rem;
+  font-weight: bold;
   cursor: pointer;
 }
 
