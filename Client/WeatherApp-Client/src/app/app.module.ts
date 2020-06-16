@@ -15,9 +15,10 @@ import { HomeComponent } from "./home-component/home-component";
 import { from, fromEventPattern } from "rxjs";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { FooterComponent } from "./footer/footer.component";
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavbarComponent, FooterComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent, FooterComponent, WeatherComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

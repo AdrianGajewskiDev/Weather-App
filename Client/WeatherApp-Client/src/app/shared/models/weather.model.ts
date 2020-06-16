@@ -1,5 +1,5 @@
-import { Main } from './main';
+import { Main } from "./main";
 
 export class WeatherModel {
-    Main:Main;
+  main: Main;
 }

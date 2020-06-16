@@ -1,8 +1,8 @@
 export class Main {
-  Temp: number;
-  Pressure: number;
-  Humidity: number;
-  Temp_min: number;
-  Temp_max: number;
-  TempC: number;
+  temp: number;
+  pressure: number;
+  humidity: number;
+  temp_min: number;
+  temp_max: number;
+  tempC: number;
 }

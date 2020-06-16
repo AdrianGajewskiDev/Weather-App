@@ -10,7 +10,7 @@ import {
   transition,
   // ...
 } from "@angular/animations";
-import { WeatherService } from "../shared/services/weather.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home-component",
@@ -36,10 +36,7 @@ import { WeatherService } from "../shared/services/weather.service";
   ],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private fb: FormBuilder,
-    private weatherService: WeatherService
-  ) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   @Input() color: ThemePalette = "primary";
   form: FormGroup;
@@ -61,5 +58,14 @@ export class HomeComponent implements OnInit {
     document.location.href = this.externalURl;
   }
 
-  onSubmit(): void {}
+  async onSubmit() {
+    var city = this.form.get("cityName").value;
+    this.state = "slideOut";
+    await this.delay(300);
+    this.router.navigateByUrl("/weather/" + city);
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 }
