@@ -1,12 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-import { TooltipPosition } from "@angular/material/tooltip";
 import { DataType } from "../shared/data.type";
 
 @Component({
@@ -18,15 +12,6 @@ export class HomeComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   @Input()
   color: ThemePalette = "primary";
-  positionOptions: TooltipPosition[] = [
-    "after",
-    "before",
-    "above",
-    "below",
-    "left",
-    "right",
-  ];
-  position = new FormControl(this.positionOptions[0]);
   form: FormGroup;
 
   private externalURl = " http://bulk.openweathermap.org/sample/";
