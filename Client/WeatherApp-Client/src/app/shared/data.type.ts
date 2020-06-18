@@ -3,4 +3,5 @@ export enum DataType {
   CityID,
   LongitudeAndLatitude,
   UserLocation,
+  Invalid,
 }

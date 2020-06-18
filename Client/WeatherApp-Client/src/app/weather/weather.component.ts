@@ -1,37 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from "@angular/animations";
+
 import { ActivatedRoute } from "@angular/router";
 import { WeatherModel } from "../shared/models/weather.model";
 import { WeatherService } from "../shared/services/weather.service";
+import { slideAnimation } from "../shared/animations/animations";
 
 @Component({
   selector: "app-weather",
   templateUrl: "./weather.component.html",
   styleUrls: ["./weather.component.css"],
-  animations: [
-    trigger("slideInOut", [
-      state(
-        "slideIn",
-        style({
-          transform: "translateX(0)",
-        })
-      ),
-      state(
-        "slideOut",
-        style({
-          transform: "translateX(300%)",
-        })
-      ),
-      transition("* => slideIn", [animate("0.3s")]),
-      transition("* => slideOut", [animate("0.3s")]),
-    ]),
-  ],
+  animations: [slideAnimation],
 })
 export class WeatherComponent implements OnInit {
   constructor(
@@ -46,15 +24,22 @@ export class WeatherComponent implements OnInit {
   state: "slideIn" | "slideOut" = "slideIn";
   data: string;
   weatherDetails: WeatherModel = new WeatherModel();
+  dataType = localStorage.getItem("dataType");
+  showLoadingSpinner: boolean = true;
 
   ngOnInit(): void {
-    this.weatherService.getWeatherByCity(this.data).subscribe(
-      (res) => {
-        this.weatherDetails.main = res.main;
-      },
-      (error) => {
-        console.log(error);
+    switch (this.dataType) {
+      case "cityName": {
+        this.weatherService.getWeatherByCity(this.data).subscribe(
+          (res) => {
+            this.weatherDetails = res;
+            this.showLoadingSpinner = false;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       }
-    );
+    }
   }
 }

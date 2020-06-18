@@ -7,9 +7,11 @@ import { WeatherModel } from "../models/weather.model";
 export class WeatherService {
   constructor(private httpClient: HttpClient) {}
 
-  private baseUrl: string = "https://localhost:44377/api/weather/currentweather/";
+  private baseUrl: string = "https://localhost:44377/api/weather/";
 
   getWeatherByCity(city: string): Observable<WeatherModel> {
-    return this.httpClient.get<WeatherModel>(this.baseUrl + city);
+    return this.httpClient.get<WeatherModel>(
+      this.baseUrl + "currentweatherByCity/" + city
+    );
   }
 }

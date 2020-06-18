@@ -10,6 +10,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [],
@@ -25,6 +26,7 @@ import { MatMenuModule } from "@angular/material/menu";
     MatIconModule,
     MatMenuModule,
     MatInputModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AngularMaterialModule {}
