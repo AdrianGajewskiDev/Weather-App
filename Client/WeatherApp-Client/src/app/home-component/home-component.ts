@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   private externalURl = " http://bulk.openweathermap.org/sample/";
   private dataType: DataType = DataType.CityName;
-  private data: string = "";
+  private data: string | string[] = "";
 
   showError: boolean = false;
   errorMessage: string = "";
@@ -42,6 +42,8 @@ export class HomeComponent implements OnInit {
     this.dataType = this.checkDataType();
 
     if (this.showError == true) return;
+    1;
+    console.log(this.data);
 
     switch (this.dataType) {
       case DataType.CityName:
@@ -79,13 +81,23 @@ export class HomeComponent implements OnInit {
         input.push(field);
       }
     }
+    if (!(Array.isArray(input) && input.length)) {
+      this.errorMessage = "Please fill one of the form inputs";
+      this.showError = true;
+      return DataType.Invalid;
+    }
+
+    if (input[0] == "cityLongitude" && input[1] == "cityLatitude") {
+      this.data = [
+        this.form.controls[input[0]].value,
+        this.form.controls[input[1]].value,
+      ];
+
+      return DataType.LongitudeAndLatitude;
+    }
 
     if (input.length > 1) {
       this.errorMessage = "Please use only one of the following";
-      this.showError = true;
-      return DataType.Invalid;
-    } else if (input.length < 1) {
-      this.errorMessage = "Please fill one of the form inputs";
       this.showError = true;
       return DataType.Invalid;
     }
@@ -98,10 +110,6 @@ export class HomeComponent implements OnInit {
         return DataType.CityName;
       case "cityID":
         return DataType.CityID;
-      case "cityLongitude":
-        return DataType.LongitudeAndLatitude;
-      case "cityLatitude":
-        return DataType.LongitudeAndLatitude;
     }
   }
 }

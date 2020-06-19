@@ -4,25 +4,80 @@
   fxLayoutAlign="center center"
   class="container"
 >
-  <mat-card [@slideInOut]="state" class="card" id="cardform">
-    <mat-card-header class="card-header">
-      <mat-card-title class="title">
-        <ul>
-          <li>{{ weatherDetails.main.tempC }}</li>
-          <li>{{ weatherDetails.main.temp }}</li>
-          <li>{{ weatherDetails.main.pressure }}</li>
-          <li>{{ weatherDetails.main.humidity }}</li>
-        </ul></mat-card-title
-      >
-      <mat-card-subtitle class="subtitle"> </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-spinner
-        *ngIf="showLoadingSpinner == true"
-        class="spinner"
-      ></mat-spinner>
-    </mat-card-content>
-    <mat-card-actions class="action" fxLayoutAlign="center start">
-    </mat-card-actions>
+  <mat-card [@slideInOut]="state" class="card card-weatherDetails">
+    <div class="card-upperContent">
+      <h1>Gdansk</h1>
+      <img
+        class="img-weatherCondition"
+        src="../../assets/Images/weatherIcons/sunny.png"
+        alt=""
+      />
+      <p>Clear Sky</p>
+    </div>
+    <div class="weatherDetails">
+      <div class="weatherDetails-item">
+        <div class="weatherDetails-item-container">
+          <h2>Temperature</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/tempC.png" alt="" />
+            <p>20</p>
+          </div>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/tempF.png" alt="" />
+            <p>297</p>
+          </div>
+        </div>
+        <div class="weatherDetails-item-container">
+          <h2>Wind</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/windSpeed.png" alt="" />
+            <p>12 m/s</p>
+          </div>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/wind90deg.png" alt="" />
+            <p>90 deg</p>
+          </div>
+        </div>
+      </div>
+      <div class="weatherDetails-item">
+        <div class="weatherDetails-item-container">
+          <h2>Pressure</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/pressure.png" alt="" />
+            <p>900 hPa</p>
+          </div>
+        </div>
+        <div class="weatherDetails-item-container">
+          <h2>Sunrise/set</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/sunrise.png" alt="" />
+            <p>4:02 am</p>
+          </div>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/sunset.png" alt="" />
+            <p>10:04 pm</p>
+          </div>
+        </div>
+      </div>
+      <div class="weatherDetails-item">
+        <div class="weatherDetails-item-container">
+          <h2>Visibility</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/visibility.png" alt="" />
+            <p>85 %</p>
+          </div>
+        </div>
+        <div class="weatherDetails-item-container">
+          <h2>City Details</h2>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/country.png" alt="" />
+            <p>PL</p>
+          </div>
+          <div class="weatherDetails-content">
+            <p class="city-details-lonlan">lon 35 lan 50</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </mat-card>
 </div>

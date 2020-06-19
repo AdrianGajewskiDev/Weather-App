@@ -3,3 +3,88 @@
   left: 50%;
   top: 50%;
 }
+
+.card-weatherDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-upperContent {
+  position: relative;
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-upperContent h1 {
+  font-weight: 400;
+  font-size: 2.5rem;
+}
+
+.card-upperContent p {
+  font-weight: 400;
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+
+.img-weatherCondition {
+  width: 300px;
+  position: absolute;
+}
+
+.weatherDetails {
+  height: 25vh;
+  width: 100%;
+  display: flex;
+}
+
+.weatherDetails-item {
+  height: 100%;
+  width: 33%;
+  border-right: 2px solid #439cef;
+}
+
+.weatherDetails-item:nth-child(3) {
+  height: 100%;
+  width: 33%;
+  border: none;
+}
+
+.weatherDetails-item-container {
+  display: block;
+  width: 100%;
+  height: 50%;
+}
+
+.weatherDetails-item-container h2 {
+  font-weight: 400 !important;
+}
+
+.weatherDetails-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+}
+
+.weatherDetails-content img {
+  position: absolute;
+  left: 0;
+  width: 40px;
+  margin-left: -10px;
+}
+
+.weatherDetails-content p {
+  position: absolute;
+  left: 20%;
+  font-size: 1.7rem;
+  color: #439cef;
+}
+
+.city-details-lonlan {
+  font-size: 1.3rem !important;
+}
