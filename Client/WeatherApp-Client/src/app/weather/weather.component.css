@@ -88,3 +88,9 @@
 .city-details-lonlan {
   font-size: 1.3rem !important;
 }
+.loading-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+}

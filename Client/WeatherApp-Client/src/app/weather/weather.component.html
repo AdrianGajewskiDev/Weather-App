@@ -4,15 +4,23 @@
   fxLayoutAlign="center center"
   class="container"
 >
-  <mat-card [@slideInOut]="state" class="card card-weatherDetails">
+  <mat-spinner
+    *ngIf="showLoadingSpinner == true"
+    class="loading-spinner"
+  ></mat-spinner>
+  <mat-card
+    *ngIf="showLoadingSpinner == false"
+    [@slideInOut]="state"
+    class="card card-weatherDetails"
+  >
     <div class="card-upperContent">
-      <h1>Gdansk</h1>
+      <h1>{{ weatherDetails.name }}</h1>
       <img
         class="img-weatherCondition"
         src="../../assets/Images/weatherIcons/sunny.png"
         alt=""
       />
-      <p>Clear Sky</p>
+      <p>{{ weatherDetails.weather[0].description }}</p>
     </div>
     <div class="weatherDetails">
       <div class="weatherDetails-item">
@@ -20,22 +28,22 @@
           <h2>Temperature</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/tempC.png" alt="" />
-            <p>20</p>
+            <p>{{ weatherDetails.main.tempC }}</p>
           </div>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/tempF.png" alt="" />
-            <p>297</p>
+            <p>{{ weatherDetails.main.temp }}</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>Wind</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/windSpeed.png" alt="" />
-            <p>12 m/s</p>
+            <p>{{ weatherDetails.wind.speed }}</p>
           </div>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/wind90deg.png" alt="" />
-            <p>90 deg</p>
+            <p>{{ weatherDetails.wind.deg }}</p>
           </div>
         </div>
       </div>
@@ -44,18 +52,18 @@
           <h2>Pressure</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/pressure.png" alt="" />
-            <p>900 hPa</p>
+            <p>{{ weatherDetails.main.pressure }}</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>Sunrise/set</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/sunrise.png" alt="" />
-            <p>4:02 am</p>
+            <p>{{ weatherDetails.sys.sunriseTime }}</p>
           </div>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/sunset.png" alt="" />
-            <p>10:04 pm</p>
+            <p>{{ weatherDetails.sys.sunsetTime }}</p>
           </div>
         </div>
       </div>
@@ -64,14 +72,14 @@
           <h2>Visibility</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/visibility.png" alt="" />
-            <p>85 %</p>
+            <p>{{ weatherDetails.visibility }}</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>City Details</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/country.png" alt="" />
-            <p>PL</p>
+            <p>{{ weatherDetails.sys.country }}</p>
           </div>
           <div class="weatherDetails-content">
             <p class="city-details-lonlan">lon 35 lan 50</p>
