@@ -19,7 +19,7 @@ namespace WeatherApp.API.Services
         }
 
 
-        public Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coordinates coordinates)
+        public Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {
             throw new System.NotImplementedException();
         }

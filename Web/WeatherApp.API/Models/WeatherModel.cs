@@ -4,6 +4,7 @@ namespace WeatherApp.API.Models
 {
     public class WeatherModel
     {
+        public Coord Coord { get; set; }
         public Weather[] Weather { get; set; }
         public Main Main { get; set; }
         public Wind Wind { get; set; }

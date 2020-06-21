@@ -5,8 +5,6 @@ import { WeatherModel } from "../shared/models/weather.model";
 import { WeatherService } from "../shared/services/weather.service";
 import { slideAnimation } from "../shared/animations/animations";
 import { delay } from "../shared/delay";
-import HttpStatusCode from "../shared/statusCode";
-import { ValueConverter } from "@angular/compiler/src/render3/view/template";
 
 @Component({
   selector: "app-weather",

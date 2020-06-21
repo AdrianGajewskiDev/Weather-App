@@ -3,8 +3,10 @@ import { Weather } from "./Weather";
 import { Wind } from "./Wind";
 import { Clouds } from "./Clouds";
 import { Sys } from "./Sys";
+import Coord from "./Coord";
 
 export class WeatherModel {
+  coord: Coord;
   main: Main;
   weather: Weather[];
   wind: Wind;

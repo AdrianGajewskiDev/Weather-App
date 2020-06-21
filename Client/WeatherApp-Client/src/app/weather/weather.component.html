@@ -92,7 +92,10 @@
             <p>{{ weatherDetails.sys.country }}</p>
           </div>
           <div class="weatherDetails-content">
-            <p class="city-details-lonlan">lon 35 lan 50</p>
+            <p class="city-details-lonlan">
+              lon {{ weatherDetails.coord.lon }} lan
+              {{ weatherDetails.coord.lat }}
+            </p>
           </div>
         </div>
       </div>
