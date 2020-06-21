@@ -8,6 +8,10 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: "home",
+    component: HomeComponent,
+  },
+  {
     path: "weather/:details",
     component: WeatherComponent,
   },

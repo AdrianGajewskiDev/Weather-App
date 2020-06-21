@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using WeatherApp.API.Data;
 using WeatherApp.API.Models;
 using WeatherApp.API.Services;
 
@@ -11,22 +9,37 @@ namespace WeatherApp.API.Controllers
     [Route("api/[controller]")]
     public class WeatherController : ControllerBase
     {
-        private readonly IClientService _clientService;
-        private readonly ApplicationData _applicationData;
+        private readonly IWeatherService _weatherService;
 
-        public WeatherController(IClientService clientService, IOptions<ApplicationData> _options)
+        public WeatherController(IWeatherService weatherService)
         {
-            _clientService = clientService;
-            _applicationData = _options.Value;
+            _weatherService = weatherService;
         }
+
 
         //api/weather/currentweather
         [HttpGet("currentWeatherByCity/{city}")]
-        public async Task<IActionResult> GetCurrentWeatherByCityName(string city)
+        public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityName(string city)
         {
-            var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"q={city}&" + "appid=" +_applicationData.OWMApiKey);
+            var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
-            return Ok(response);
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return NotFound($"Cannot find a weather for {city}");
+
+            return response;
+        }
+
+
+        //api/weather/currentweather
+        [HttpGet("currentWeatherByCityID/{id}")]
+        public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityID(int id)
+        {
+            var response = await _weatherService.GetWeatherByCityIDAsync(id);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return NotFound($"Cannot find city with id of {id}");
+
+            return response;
         }
 
 

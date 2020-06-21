@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WeatherApp.API.Models;
 
 namespace WeatherApp.API.Services
 {
@@ -15,7 +16,7 @@ namespace WeatherApp.API.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<T> GetAsync<T>(string url)
+        public async Task<ApiResponse<T>> GetAsync<T>(string url)
         {
             var client = _clientFactory.CreateClient();
 
@@ -23,17 +24,25 @@ namespace WeatherApp.API.Services
 
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
-                throw new InvalidOperationException("Invalid url");
+                return new ApiResponse<T>
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest,
+                    ResponseBody = default
+                };
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var model = JsonConvert.DeserializeObject(responseContent, typeof(T));
+            var responseBody = JsonConvert.DeserializeObject(responseContent, typeof(T));
 
-            return (T)model;
+            return new ApiResponse<T> 
+            {
+                ResponseBody = (T)(responseBody),
+                StatusCode = System.Net.HttpStatusCode.OK 
+            };
         }
 
-        public Task<T> PostAsync<T>(object body)
+        public Task<ApiResponse<T>> PostAsync<T>(object body)
         {
             throw new System.NotImplementedException();
         }

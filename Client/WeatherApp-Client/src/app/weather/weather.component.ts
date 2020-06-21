@@ -1,9 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { WeatherModel } from "../shared/models/weather.model";
 import { WeatherService } from "../shared/services/weather.service";
 import { slideAnimation } from "../shared/animations/animations";
+import { delay } from "../shared/delay";
+import HttpStatusCode from "../shared/statusCode";
+import { ValueConverter } from "@angular/compiler/src/render3/view/template";
 
 @Component({
   selector: "app-weather",
@@ -14,7 +17,8 @@ import { slideAnimation } from "../shared/animations/animations";
 export class WeatherComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
+    private router: Router
   ) {
     this.routes.params.subscribe((res) => {
       this.data = res["details"];
@@ -26,20 +30,38 @@ export class WeatherComponent implements OnInit {
   weatherDetails: WeatherModel = new WeatherModel();
   dataType = localStorage.getItem("dataType");
   showLoadingSpinner: boolean = true;
+  showError: boolean = false;
 
   ngOnInit(): void {
     switch (this.dataType) {
       case "cityName": {
         this.weatherService.getWeatherByCity(this.data).subscribe(
           (res) => {
-            this.weatherDetails = res;
+            this.weatherDetails = res.responseBody;
             this.showLoadingSpinner = false;
           },
           (error) => {
-            console.log(error);
+            if (error.statusCode == 404) this.showError = true;
+          }
+        );
+      }
+      case "cityID": {
+        this.weatherService.getWeatherByCityID(parseInt(this.data)).subscribe(
+          (res) => {
+            this.weatherDetails = res.responseBody;
+            this.showLoadingSpinner = false;
+          },
+          (error) => {
+            if (error.statusCode == 404) this.showError = true;
           }
         );
       }
     }
+  }
+
+  async goBack() {
+    this.state = "slideOut";
+    await delay(300);
+    this.router.navigateByUrl("/home");
   }
 }

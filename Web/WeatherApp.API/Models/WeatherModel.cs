@@ -1,5 +1,4 @@
-﻿using System;
-using WeatherApp.API.Models.WeatherDetails;
+﻿using WeatherApp.API.Models.WeatherDetails;
 
 namespace WeatherApp.API.Models
 {
@@ -11,6 +10,7 @@ namespace WeatherApp.API.Models
         public Clouds Clouds { get; set; }
         public Sys Sys { get; set; }
         public int Visibility { get; set; }
+
         public double Dt { get; set; }
 
         // City id

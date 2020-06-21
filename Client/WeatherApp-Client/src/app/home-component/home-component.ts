@@ -4,6 +4,7 @@ import { ThemePalette } from "@angular/material/core";
 import { DataType } from "../shared/data.type";
 import { Router } from "@angular/router";
 import { slideAnimation } from "../shared/animations/animations";
+import { delay } from "../shared/delay";
 
 @Component({
   selector: "app-home-component",
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem("dataType", "cityName");
           var city = this.form.get("cityName").value;
           this.state = "slideOut";
-          await this.delay(300);
+          await delay(300);
           this.router.navigateByUrl("/weather/" + city);
           return;
         }
@@ -61,16 +62,12 @@ export class HomeComponent implements OnInit {
           localStorage.setItem("dataType", "cityID");
           var cityID = this.form.get("cityID").value;
           this.state = "slideOut";
-          await this.delay(300);
+          await delay(300);
           this.router.navigateByUrl("/weather/" + cityID);
           return;
         }
         break;
     }
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   checkDataType(): DataType {

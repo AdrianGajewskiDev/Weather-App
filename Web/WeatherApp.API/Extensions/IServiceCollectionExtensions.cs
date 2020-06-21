@@ -8,6 +8,7 @@ namespace WeatherApp.API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IWeatherService, WeatherService>();
 
             return services;
         }

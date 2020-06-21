@@ -13,7 +13,13 @@
     [@slideInOut]="state"
     class="card card-weatherDetails"
   >
-    <div class="card-upperContent">
+    <h1 *ngIf="showError == true" class="errorMessage">
+      Sorry we couldn't find weather for your city
+    </h1>
+    <div class="card-upperContent" *ngIf="showError == false">
+      <button mat-fab color="primary" class="btn-goBack" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
       <h1>{{ weatherDetails.name }}</h1>
       <img
         class="img-weatherCondition"
@@ -39,7 +45,7 @@
           <h2>Wind</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/windSpeed.png" alt="" />
-            <p>{{ weatherDetails.wind.speed }}</p>
+            <p>{{ weatherDetails.wind.speed }}m/s</p>
           </div>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/wind90deg.png" alt="" />
@@ -53,6 +59,10 @@
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/pressure.png" alt="" />
             <p>{{ weatherDetails.main.pressure }}</p>
+          </div>
+          <div class="weatherDetails-content">
+            <img src="../../assets/Images/weatherIcons/humidity.png" alt="" />
+            <p>{{ weatherDetails.main.humidity }} %</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
@@ -72,7 +82,7 @@
           <h2>Visibility</h2>
           <div class="weatherDetails-content">
             <img src="../../assets/Images/weatherIcons/visibility.png" alt="" />
-            <p>{{ weatherDetails.visibility }}</p>
+            <p>{{ weatherDetails.visibility / 100 }} %</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
