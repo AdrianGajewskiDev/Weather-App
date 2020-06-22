@@ -101,9 +101,6 @@
   top: 0;
 }
 
-.errorMessage {
-  position: absolute;
-  color: red;
-  left: 50%;
-  top: 50%;
+.btn-inerror {
+  top: 20% !important;
 }

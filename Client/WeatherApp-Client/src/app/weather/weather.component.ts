@@ -30,6 +30,8 @@ export class WeatherComponent implements OnInit {
   showLoadingSpinner: boolean = true;
   showError: boolean = false;
 
+  windDegImageUrl: string = "";
+
   ngOnInit(): void {
     switch (this.dataType) {
       case "cityName": {
@@ -37,9 +39,13 @@ export class WeatherComponent implements OnInit {
           (res) => {
             this.weatherDetails = res.responseBody;
             this.showLoadingSpinner = false;
+            this.showError = false;
+            this.checkWindDeg();
           },
           (error) => {
-            if (error.statusCode == 404) this.showError = true;
+            this.showError = true;
+
+            this.showLoadingSpinner = false;
           }
         );
       }
@@ -48,9 +54,12 @@ export class WeatherComponent implements OnInit {
           (res) => {
             this.weatherDetails = res.responseBody;
             this.showLoadingSpinner = false;
+            this.showError = false;
+
+            this.checkWindDeg();
           },
           (error) => {
-            if (error.statusCode == 404) this.showError = true;
+            this.showError = true;
           }
         );
       }
@@ -61,5 +70,64 @@ export class WeatherComponent implements OnInit {
     this.state = "slideOut";
     await delay(300);
     this.router.navigateByUrl("/home");
+  }
+
+  checkWindDeg(): void {
+    if (this.weatherDetails.wind.deg <= 45) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind45deg.png";
+      return;
+    }
+    if (
+      this.weatherDetails.wind.deg > 45 &&
+      this.weatherDetails.wind.deg <= 90
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind90deg.png";
+      return;
+    }
+    if (
+      this.weatherDetails.wind.deg > 90 &&
+      this.weatherDetails.wind.deg <= 135
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wins135deg.png";
+      return;
+    }
+    if (
+      this.weatherDetails.wind.deg > 135 &&
+      this.weatherDetails.wind.deg <= 180
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind180deg.png";
+      return;
+    }
+    if (
+      this.weatherDetails.wind.deg > 180 &&
+      this.weatherDetails.wind.deg <= 225
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind225deg.png";
+      return;
+    }
+
+    if (
+      this.weatherDetails.wind.deg > 225 &&
+      this.weatherDetails.wind.deg <= 270
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind270deg.png";
+      return;
+    }
+
+    if (
+      this.weatherDetails.wind.deg > 270 &&
+      this.weatherDetails.wind.deg <= 315
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind305deg.png";
+      return;
+    }
+
+    if (
+      this.weatherDetails.wind.deg > 315 &&
+      this.weatherDetails.wind.deg <= 360
+    ) {
+      this.windDegImageUrl = "../../assets/Images/weatherIcons/wind360deg.png";
+      return;
+    }
   }
 }

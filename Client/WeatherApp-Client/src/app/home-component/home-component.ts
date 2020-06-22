@@ -43,8 +43,6 @@ export class HomeComponent implements OnInit {
     this.dataType = this.checkDataType();
 
     if (this.showError == true) return;
-    1;
-    console.log(this.data);
 
     switch (this.dataType) {
       case DataType.CityName:
