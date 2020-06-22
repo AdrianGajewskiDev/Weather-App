@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { WeatherModel } from "../models/weather.model";
 import { Response } from "../models/response";
+import Coord from "../models/Coord";
 
 @Injectable()
 export class WeatherService {
@@ -19,6 +20,18 @@ export class WeatherService {
   getWeatherByCityID(cityID: number): Observable<Response<WeatherModel>> {
     return this.httpClient.get<Response<WeatherModel>>(
       this.baseUrl + "currentweatherByCityID/" + cityID
+    );
+  }
+
+  getWeatherByCityCoord(coord: Coord): Observable<Response<WeatherModel>> {
+    return this.httpClient.get<Response<WeatherModel>>(
+      this.baseUrl + "currentweatherByCityCoord",
+      {
+        params: {
+          lat: coord.lat.toString(),
+          lon: coord.lon.toString(),
+        },
+      }
     );
   }
 }

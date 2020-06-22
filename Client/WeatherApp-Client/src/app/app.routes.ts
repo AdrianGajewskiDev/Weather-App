@@ -15,4 +15,8 @@ export const routes: Routes = [
     path: "weather/:details",
     component: WeatherComponent,
   },
+  {
+    path: "weather",
+    component: WeatherComponent,
+  },
 ];

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WeatherApp.API.Models;
+using WeatherApp.API.Models.WeatherDetails;
 using WeatherApp.API.Services;
 
 namespace WeatherApp.API.Controllers
@@ -38,6 +39,20 @@ namespace WeatherApp.API.Controllers
 
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 return NotFound($"Cannot find city with id of {id}");
+
+            return response;
+        }
+
+        //api/weather/currentweather
+        [HttpGet("currentWeatherByCityCoord")]
+        public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityCoord([FromQuery]Coord coord)
+        {
+         
+
+            var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return NotFound($"Cannot find city with coords of {coord.ToString()}");
 
             return response;
         }

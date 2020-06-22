@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 using WeatherApp.API.Data;
 using WeatherApp.API.Models;
@@ -19,9 +20,14 @@ namespace WeatherApp.API.Services
         }
 
 
-        public Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
+        public async Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {
-            throw new System.NotImplementedException();
+            if (coordinates == null)
+                throw new ArgumentNullException();
+            var requestURl = _applicationData.OWMUrl + $"lat={coordinates.Lat}&lon={coordinates.Lon}&" + "appid=" + _applicationData.OWMApiKey;
+            var response = await _clientService.GetAsync<WeatherModel>(requestURl);
+
+            return response;
         }
 
         public async Task<ApiResponse<WeatherModel>> GetWeatherByCityIDAsync(int cityID)

@@ -65,6 +65,19 @@ export class HomeComponent implements OnInit {
           return;
         }
         break;
+      case DataType.LongitudeAndLatitude:
+        {
+          localStorage.setItem("dataType", "cityCoord");
+          var citylat = this.form.get("cityLatitude").value;
+          var citylon = this.form.get("cityLongitude").value;
+          localStorage.setItem("lat", citylat);
+          localStorage.setItem("lon", citylon);
+          this.state = "slideOut";
+          await delay(300);
+          this.router.navigateByUrl("/weather");
+          return;
+        }
+        break;
     }
   }
 

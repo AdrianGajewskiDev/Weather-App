@@ -5,6 +5,7 @@ import { WeatherModel } from "../shared/models/weather.model";
 import { WeatherService } from "../shared/services/weather.service";
 import { slideAnimation } from "../shared/animations/animations";
 import { delay } from "../shared/delay";
+import Coord from "../shared/models/Coord";
 
 @Component({
   selector: "app-weather",
@@ -29,10 +30,16 @@ export class WeatherComponent implements OnInit {
   dataType = localStorage.getItem("dataType");
   showLoadingSpinner: boolean = true;
   showError: boolean = false;
-
+  lat?: number;
+  lon?: number;
   windDegImageUrl: string = "";
 
   ngOnInit(): void {
+    if (this.data == null) {
+      this.lat = parseFloat(localStorage.getItem("lat"));
+      this.lon = parseFloat(localStorage.getItem("lon"));
+    }
+
     switch (this.dataType) {
       case "cityName": {
         this.weatherService.getWeatherByCity(this.data).subscribe(
@@ -62,6 +69,22 @@ export class WeatherComponent implements OnInit {
             this.showError = true;
           }
         );
+      }
+      case "cityCoord": {
+        this.weatherService
+          .getWeatherByCityCoord(new Coord(this.lon, this.lat))
+          .subscribe(
+            (res) => {
+              this.weatherDetails = res.responseBody;
+              this.showLoadingSpinner = false;
+              this.showError = false;
+
+              this.checkWindDeg();
+            },
+            (error) => {
+              this.showError = true;
+            }
+          );
       }
     }
   }
