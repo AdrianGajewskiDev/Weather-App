@@ -67,18 +67,35 @@ export class HomeComponent implements OnInit {
         break;
       case DataType.LongitudeAndLatitude:
         {
-          localStorage.setItem("dataType", "cityCoord");
-          var citylat = this.form.get("cityLatitude").value;
-          var citylon = this.form.get("cityLongitude").value;
-          localStorage.setItem("lat", citylat);
-          localStorage.setItem("lon", citylon);
-          this.state = "slideOut";
-          await delay(300);
-          this.router.navigateByUrl("/weather");
+          this.useCityGeoLocation(
+            this.form.get("cityLatitude").value,
+            this.form.get("cityLongitude").value
+          );
           return;
         }
         break;
     }
+  }
+
+  getLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.useCityGeoLocation(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+      });
+    }
+  }
+
+  async useCityGeoLocation(lat, lon) {
+    localStorage.setItem("dataType", "cityCoord");
+    localStorage.setItem("lat", lat);
+    localStorage.setItem("lon", lon);
+    this.state = "slideOut";
+    await delay(300);
+    this.router.navigateByUrl("/weather");
+    return;
   }
 
   checkDataType(): DataType {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Serilog;
 using System;
 using System.Threading.Tasks;
 using WeatherApp.API.Data;
@@ -23,7 +24,11 @@ namespace WeatherApp.API.Services
         public async Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {
             if (coordinates == null)
+            {
+                Log.Error("City coordinates are null");
+
                 throw new ArgumentNullException();
+            }
             var requestURl = _applicationData.OWMUrl + $"lat={coordinates.Lat}&lon={coordinates.Lon}&" + "appid=" + _applicationData.OWMApiKey;
             var response = await _clientService.GetAsync<WeatherModel>(requestURl);
 

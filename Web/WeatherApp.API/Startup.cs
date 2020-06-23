@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Net;
 using WeatherApp.API.Data;
 using WeatherApp.API.Extensions;
 
@@ -15,10 +19,12 @@ namespace WeatherApp.API
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Log.Information("Configuring services....", this);
             services.Configure<ApplicationData>(conf => 
             {
                 conf.OWMApiKey = Configuration["OpenWeatherApi:ApiKey"];
@@ -31,15 +37,37 @@ namespace WeatherApp.API
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
         {
+            Log.Information("Configuring....", this);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("DevCorsPolicy");
             }
 
+            app.UseExceptionHandler(errors =>
+            {
+                errors.Run(async ctx =>
+                {
+                    Log.Error($"Internal server error while trying to complete request from {ctx.Request.Path}");
 
+                    ctx.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                    ctx.Response.ContentType = "application/json";
+
+                    var contextFeature = ctx.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        await ctx.Response.WriteAsync(new ExceptionInfo()
+                        {
+                            StatusCode = ctx.Response.StatusCode,
+                            Message = "Internal Server Error."
+                        }.ToString());
+                    }
+                });
+            });
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

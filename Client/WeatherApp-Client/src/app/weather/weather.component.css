@@ -99,8 +99,42 @@
   position: absolute;
   left: 5%;
   top: 0;
+  z-index: 100;
 }
 
 .btn-inerror {
   top: 20% !important;
+}
+
+@media (max-width: 767px) {
+  .weatherDetails-content {
+    font-size: 2px !important;
+  }
+
+  .weatherDetails-item-container h2 {
+    font-size: 16px !important;
+  }
+
+  .weatherDetails-content img {
+    position: absolute;
+    left: 0;
+    width: 30px;
+    margin-left: 1px;
+  }
+
+  .weatherDetails-content p {
+    position: absolute;
+    left: 30%;
+    font-size: 1.2rem;
+    color: #439cef;
+  }
+
+  .city-details-lonlan {
+    font-size: 16px !important;
+  }
+
+  .img-weatherCondition {
+    width: 200px;
+    position: absolute;
+  }
 }

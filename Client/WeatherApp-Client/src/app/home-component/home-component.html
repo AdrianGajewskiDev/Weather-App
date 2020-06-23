@@ -64,7 +64,10 @@
             </td>
           </tr>
         </table>
-        <button mat-raised-button [color]="color">Use my location</button>
+
+        <button mat-raised-button [color]="color" (click)="getLocation()">
+          Use my location
+        </button>
       </form>
     </mat-card-content>
     <mat-card-actions class="action" fxLayoutAlign="center start">

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace WeatherApp.API.Services
 
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
+                Log.Information($"Cannot find weather for {url}");
                 return new ApiResponse<T>
                 {
                     StatusCode = System.Net.HttpStatusCode.BadRequest,
