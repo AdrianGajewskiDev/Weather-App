@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Threading.Tasks;
 using WeatherApp.API.Models;
@@ -23,7 +24,8 @@ namespace WeatherApp.API.Controllers
         [HttpGet("currentWeatherByCity/{city}")]
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityName(string city)
         {
-            Log.Information($"Getting Current Weather by city name from {Request.Path}");
+       
+                Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
             var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -37,7 +39,8 @@ namespace WeatherApp.API.Controllers
         [HttpGet("currentWeatherByCityID/{id}")]
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityID(int id)
         {
-            Log.Information($"Getting Current Weather by city id from {Request.Path}");
+
+            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
 
             var response = await _weatherService.GetWeatherByCityIDAsync(id);
 
@@ -51,7 +54,8 @@ namespace WeatherApp.API.Controllers
         [HttpGet("currentWeatherByCityCoord")]
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityCoord([FromQuery]Coord coord)
         {
-            Log.Information($"Getting Current Weather by city coords from {Request.Path}");
+            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
+
 
             var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
 

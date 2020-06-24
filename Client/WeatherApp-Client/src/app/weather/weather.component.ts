@@ -33,12 +33,14 @@ export class WeatherComponent implements OnInit {
   lat?: number;
   lon?: number;
   windDegImageUrl: string = "";
+  errorMessage: string = "";
 
   ngOnInit(): void {
     if (this.data == null) {
       this.lat = parseFloat(localStorage.getItem("lat"));
       this.lon = parseFloat(localStorage.getItem("lon"));
     }
+    console.log(this.dataType);
 
     switch (this.dataType) {
       case "cityName": {
@@ -51,7 +53,7 @@ export class WeatherComponent implements OnInit {
           },
           (error) => {
             this.showError = true;
-
+            this.errorMessage = `Cannot find a weather for ${this.data}`;
             this.showLoadingSpinner = false;
           }
         );
@@ -67,6 +69,8 @@ export class WeatherComponent implements OnInit {
           },
           (error) => {
             this.showError = true;
+            this.errorMessage = `Cannot find a city with id of ${this.data}`;
+            this.showLoadingSpinner = false;
           }
         );
       }
@@ -87,6 +91,7 @@ export class WeatherComponent implements OnInit {
           );
       }
     }
+    localStorage.removeItem("dataType");
   }
 
   async goBack() {

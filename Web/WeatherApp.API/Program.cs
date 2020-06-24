@@ -14,7 +14,7 @@ namespace WeatherApp.API
             Log.Logger = new LoggerConfiguration()
              .MinimumLevel.Information()
              .Enrich.FromLogContext()
-             .WriteTo.File("./logs/logs.txt")
+             .WriteTo.File(new JsonFormatter(),"./logs/logs.txt")
              .CreateLogger();
 
             try

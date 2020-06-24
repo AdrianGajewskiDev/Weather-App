@@ -15,7 +15,7 @@
   >
     <div *ngIf="showError == true" class="errorMessage">
       <h1>
-        Sorry we couldn't find weather for your city
+        {{ errorMessage }}
       </h1>
       <button
         mat-fab
@@ -44,18 +44,18 @@
         <div class="weatherDetails-item-container">
           <h2>Temperature</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/tempC.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/tempC.png" />
             <p>{{ weatherDetails.main.tempC }}</p>
           </div>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/tempF.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/tempF.png" />
             <p>{{ weatherDetails.main.temp }}</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>Wind</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/windSpeed.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/windSpeed.png" />
             <p>{{ weatherDetails.wind.speed }}m/s</p>
           </div>
           <div class="weatherDetails-content">
@@ -68,22 +68,22 @@
         <div class="weatherDetails-item-container">
           <h2>Pressure</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/pressure.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/pressure.png" />
             <p>{{ weatherDetails.main.pressure }}</p>
           </div>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/humidity.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/humidity.png" />
             <p>{{ weatherDetails.main.humidity }} %</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>Sunrise/set</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/sunrise.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/sunrise.png" />
             <p>{{ weatherDetails.sys.sunriseTime }}</p>
           </div>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/sunset.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/sunset.png" />
             <p>{{ weatherDetails.sys.sunsetTime }}</p>
           </div>
         </div>
@@ -92,14 +92,14 @@
         <div class="weatherDetails-item-container">
           <h2>Visibility</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/visibility.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/visibility.png" />
             <p>{{ weatherDetails.visibility }} m</p>
           </div>
         </div>
         <div class="weatherDetails-item-container">
           <h2>City Details</h2>
           <div class="weatherDetails-content">
-            <img src="../../assets/Images/weatherIcons/country.png" alt="" />
+            <img src="../../assets/Images/weatherIcons/country.png" />
             <p>{{ weatherDetails.sys.country }}</p>
           </div>
           <div class="weatherDetails-content">

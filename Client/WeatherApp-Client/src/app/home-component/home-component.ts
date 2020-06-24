@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   showError: boolean = false;
   errorMessage: string = "";
+  usingUserLocation: boolean = false;
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -67,11 +68,13 @@ export class HomeComponent implements OnInit {
         break;
       case DataType.LongitudeAndLatitude:
         {
-          this.useCityGeoLocation(
-            this.form.get("cityLatitude").value,
-            this.form.get("cityLongitude").value
-          );
-          return;
+          if (this.usingUserLocation == false) {
+            this.useCityGeoLocation(
+              this.form.get("cityLatitude").value,
+              this.form.get("cityLongitude").value
+            );
+            return;
+          }
         }
         break;
     }
@@ -86,6 +89,8 @@ export class HomeComponent implements OnInit {
         );
       });
     }
+    this.usingUserLocation = true;
+    this.dataType = DataType.LongitudeAndLatitude;
   }
 
   async useCityGeoLocation(lat, lon) {

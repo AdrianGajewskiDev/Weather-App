@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -51,7 +52,7 @@ namespace WeatherApp.API
             {
                 errors.Run(async ctx =>
                 {
-                    Log.Error($"Internal server error while trying to complete request from {ctx.Request.Path}");
+                    Log.Error($"Internal server error while trying to complete request from {ctx.Request.GetEncodedUrl()}");
 
                     ctx.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
