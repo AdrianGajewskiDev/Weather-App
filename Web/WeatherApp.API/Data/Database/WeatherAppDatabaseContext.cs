@@ -7,6 +7,6 @@ namespace WeatherApp.API.Data.Database
     {
         public WeatherAppDatabaseContext(DbContextOptions<WeatherAppDatabaseContext> options) : base(options) { }
 
-        DbSet<Notification> Notifications { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

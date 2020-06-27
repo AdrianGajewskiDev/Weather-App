@@ -1,9 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using WeatherApp.API.Data.Database;
+using WeatherApp.API.Models.Entities;
+using WeatherApp.API.Models.Request;
 using WeatherApp.API.Services;
+using WeatherApp.API.Services.Implementation;
+using WeatherApp.API.Services.Services;
 
 namespace WeatherApp.API.Extensions
 {
@@ -14,6 +19,7 @@ namespace WeatherApp.API.Extensions
         {
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IWeatherService, WeatherService>();
+            services.AddScoped<INotificationsService, NotificationsService>();
 
             return services;
         }
@@ -29,6 +35,20 @@ namespace WeatherApp.API.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
 
             });
+
+            return services;
+        }
+
+
+        public static IServiceCollection AddMapper(this IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.CreateMap<NotificationRequestModel, Notification>();
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             return services;
         }
