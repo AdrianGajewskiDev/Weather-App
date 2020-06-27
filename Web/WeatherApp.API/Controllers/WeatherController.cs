@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Threading.Tasks;
 using WeatherApp.API.Models;
@@ -25,7 +24,7 @@ namespace WeatherApp.API.Controllers
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityName(string city)
         {
        
-                Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
+            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
             var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -56,11 +55,10 @@ namespace WeatherApp.API.Controllers
         {
             Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
 
-
             var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
 
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                return NotFound($"Cannot find city with coords of {coord.ToString()}");
+                return NotFound($"Cannot find city with coords of {coord}");
 
             return response;
         }

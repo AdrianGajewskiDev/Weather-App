@@ -32,13 +32,14 @@ namespace WeatherApp.API
                 conf.OWMUrl = Configuration["OpenWeatherApi:Url"];
             });
 
+            services.AddDevDatabaseContext(Configuration);
             services.AddCors(conf => conf.AddPolicy("DevCorsPolicy", conf => conf.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddHttpClient();
             services.AddApplicationServices();
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             Log.Information("Configuring....", this);
 
