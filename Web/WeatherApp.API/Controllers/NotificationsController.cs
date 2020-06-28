@@ -34,6 +34,8 @@ namespace WeatherApp.API.Controllers
                 return BadRequest("Request model was null");
             }
 
+            model.UserID = _notificationsService.GenerateUserID();
+
             if (await _notificationsService.AddNotificationsAsync(model) == true)
             {
                 return Created(_linkGenerator.GetPathByAction("RegisterNewNotification", "Notifications"), model);
@@ -43,5 +45,6 @@ namespace WeatherApp.API.Controllers
 
             return BadRequest("Something bad has happened while trying to add new notification");
         }
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System;
 using WeatherApp.API.Data.Database;
 using WeatherApp.API.Models.Entities;
 using WeatherApp.API.Models.Request;
@@ -20,6 +21,7 @@ namespace WeatherApp.API.Extensions
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IWeatherService, WeatherService>();
             services.AddScoped<INotificationsService, NotificationsService>();
+            services.AddSingleton<ISignalRConnectionsManager, SignalRConnectionsManager>();
 
             return services;
         }
@@ -27,7 +29,6 @@ namespace WeatherApp.API.Extensions
 
         public static IServiceCollection AddDevDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddDbContext<WeatherAppDatabaseContext>(options => 
             {
                 Log.Information("Configuring database");
@@ -53,5 +54,16 @@ namespace WeatherApp.API.Extensions
             return services;
         }
 
+
+
+        public static IServiceCollection AddAndConfigureSignalR(this IServiceCollection services)
+        {
+            services.AddSignalR(configure => 
+            {
+                configure.ClientTimeoutInterval = TimeSpan.FromMinutes(60);
+            });
+
+            return services; 
+        }
     }
 }

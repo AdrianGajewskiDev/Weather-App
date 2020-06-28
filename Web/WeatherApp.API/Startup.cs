@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using Serilog;
 using System.Net;
 using WeatherApp.API.Data;
 using WeatherApp.API.Extensions;
+using WeatherApp.API.SignalR.Hubs;
 
 namespace WeatherApp.API
 {
@@ -36,6 +38,7 @@ namespace WeatherApp.API
             services.AddCors(conf => conf.AddPolicy("DevCorsPolicy", conf => conf.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddHttpClient();
             services.AddApplicationServices();
+            services.AddAndConfigureSignalR();
             services.AddMapper();
             services.AddControllers();
         }
@@ -77,6 +80,10 @@ namespace WeatherApp.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/notificationsHub", options => 
+                {
+                    options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
+                });
             });
         }
     }

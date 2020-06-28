@@ -9,5 +9,7 @@ namespace WeatherApp.API.Services.Services
     {
         Task<IEnumerable<Notification>> GetAllAsync();
         Task<bool> AddNotificationsAsync(NotificationRequestModel notification);
+        Task SendNotification<T>(string userID, T body);
+        string GenerateUserID();
     }
 }
