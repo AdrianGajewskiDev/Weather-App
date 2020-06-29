@@ -23,8 +23,12 @@ namespace WeatherApp.API.Services.Implementation
 
         public HashSet<string> GetConnections(string userID)
         {
-            if (userMap[userID] != null)
-                return userMap[userID];
+            if(userMap.ContainsKey(userID))
+            {
+                if (userMap[userID] != null)
+                    return userMap[userID];
+            }
+         
 
             return null;
         }

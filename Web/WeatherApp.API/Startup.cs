@@ -35,7 +35,7 @@ namespace WeatherApp.API
             });
 
             services.AddDevDatabaseContext(Configuration);
-            services.AddCors(conf => conf.AddPolicy("DevCorsPolicy", conf => conf.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddCors(conf => conf.AddPolicy("DevCorsPolicy", conf => conf.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
             services.AddHttpClient();
             services.AddApplicationServices();
             services.AddAndConfigureSignalR();

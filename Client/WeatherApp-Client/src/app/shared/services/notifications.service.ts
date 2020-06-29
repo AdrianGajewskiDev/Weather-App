@@ -11,4 +11,9 @@ export class NotificationsService {
   registerToNotifications(model: NotificationRequestModel) {
     return this.httpClient.post(this.baseUrl + "registerNotification", model);
   }
+
+  ///this is temporary method to test connection to the server
+  getNotification(userID: string) {
+    return this.httpClient.get(this.baseUrl + "send/" + userID);
+  }
 }

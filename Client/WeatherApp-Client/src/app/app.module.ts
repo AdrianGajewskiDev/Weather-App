@@ -18,6 +18,7 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { FooterComponent } from "./footer/footer.component";
 import { WeatherComponent } from "./weather/weather.component";
 import { NotificationsRegisterComponent } from "./notifications-register/notifications-register.component";
+import { ComunicationService } from "./shared/services/comunication.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { NotificationsRegisterComponent } from "./notifications-register/notific
     AngularMaterialModule,
     HttpClientModule,
   ],
-  providers: [WeatherService, NotificationsService],
+  providers: [WeatherService, NotificationsService, ComunicationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

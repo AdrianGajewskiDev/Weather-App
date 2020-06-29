@@ -46,5 +46,11 @@ namespace WeatherApp.API.Controllers
             return BadRequest("Something bad has happened while trying to add new notification");
         }
 
+        [HttpGet("send/{userID}")]
+        public async Task SendNotifications(string userID)
+        {
+            await _notificationsService.SendNotification<string>(userID, "Message");
+        }
+
     }
 }

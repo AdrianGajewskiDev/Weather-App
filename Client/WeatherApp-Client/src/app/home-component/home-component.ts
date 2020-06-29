@@ -5,6 +5,8 @@ import { DataType } from "../shared/data.type";
 import { Router } from "@angular/router";
 import { slideAnimation } from "../shared/animations/animations";
 import { delay } from "../shared/delay";
+import { ComunicationService } from "../shared/services/comunication.service";
+import { NotificationsService } from "../shared/services/notifications.service";
 
 @Component({
   selector: "app-home-component",
@@ -13,7 +15,12 @@ import { delay } from "../shared/delay";
   animations: [slideAnimation],
 })
 export class HomeComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private communicationService: ComunicationService,
+    private notificationService: NotificationsService
+  ) {}
 
   @Input() color: ThemePalette = "primary";
   form: FormGroup;
@@ -34,6 +41,11 @@ export class HomeComponent implements OnInit {
       cityLongitude: [""],
       cityLatitude: [""],
     });
+
+    this.communicationService.connect();
+    this.notificationService
+      .getNotification(localStorage.getItem("userID"))
+      .subscribe((res) => console.log(res));
   }
 
   goToCityIDs(): void {

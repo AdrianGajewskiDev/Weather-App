@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Serilog;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WeatherApp.API.Services.Services;
 
@@ -19,6 +20,11 @@ namespace WeatherApp.API.SignalR.Hubs
 
         public string GetConnectionID(string userID)
         {
+            if(_signalRConnectionsManager.GetConnections(userID) != null)
+            {
+                return _signalRConnectionsManager.GetConnections(userID).First();
+            }
+
             _signalRConnectionsManager.AddConnection(userID, Context.ConnectionId);
 
             return Context.ConnectionId;

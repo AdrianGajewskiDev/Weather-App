@@ -5,6 +5,7 @@ import { ThemePalette } from "@angular/material/core";
 import { NotificationRequestModel } from "../shared/models/notificationRequestModel";
 import { NotificationsService } from "../shared/services/notifications.service";
 import { Router } from "@angular/router";
+import { ComunicationService } from "../shared/services/comunication.service";
 
 @Component({
   selector: "app-notifications-register",
@@ -16,6 +17,7 @@ export class NotificationsRegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private notificationsService: NotificationsService,
+    private communicationService: ComunicationService,
     private router: Router
   ) {}
 
@@ -28,6 +30,8 @@ export class NotificationsRegisterComponent implements OnInit {
       Email: ["", [Validators.required, Validators.email]],
       CityName: ["", Validators.required],
     });
+
+    this.communicationService.disconnect();
   }
 
   onSubmit(): void {
@@ -38,8 +42,9 @@ export class NotificationsRegisterComponent implements OnInit {
 
     this.notificationsService
       .registerToNotifications(model)
-      .subscribe((res) => {
-        console.log("success!!!");
+      .subscribe((res: any) => {
+        localStorage.setItem("userID", res.userID);
+        this.communicationService.connect();
       });
   }
 }
