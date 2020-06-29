@@ -7,7 +7,7 @@ using WeatherApp.API.Services.Services;
 
 namespace WeatherApp.API.SignalR.Hubs
 {
-    [HubName("Notification")]
+    [HubName("Notifications")]
     public class NotificationHub : Hub
     {
         private readonly ISignalRConnectionsManager _signalRConnectionsManager;
@@ -19,7 +19,6 @@ namespace WeatherApp.API.SignalR.Hubs
 
         public string GetConnectionID(string userID)
         {
-
             _signalRConnectionsManager.AddConnection(userID, Context.ConnectionId);
 
             return Context.ConnectionId;
