@@ -11,5 +11,6 @@ namespace WeatherApp.API.Services.Services
         Task<bool> AddNotificationsAsync(NotificationRequestModel notification);
         Task SendNotification<T>(string userID, T body);
         string GenerateUserID();
+        string GetUserID(string email);
     }
 }

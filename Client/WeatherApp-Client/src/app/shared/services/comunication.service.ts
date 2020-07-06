@@ -13,6 +13,8 @@ export class ComunicationService {
   private hubUrl = "https://localhost:44377/notificationsHub";
   private hub: signalR.HubConnection;
 
+  public Connected: boolean = false;
+
   get GetConnectionID(): string {
     return localStorage.getItem("connectionID");
   }
@@ -25,10 +27,10 @@ export class ComunicationService {
     localStorage.removeItem("connectionID");
   }
 
-  connect() {
+  connect(): boolean {
     let userID = localStorage.getItem("userID");
 
-    if (userID === null || userID == undefined) return;
+    if (userID === null || userID == undefined) return false;
 
     this.hub.start().then(() =>
       this.hub
@@ -40,10 +42,17 @@ export class ComunicationService {
           console.error(err.toString());
         })
     );
-    this.hub.on("socket", (message: string) => console.log(message));
+    this.Connected = true;
+    return true;
+  }
+
+  setSignalRListener(func, method: (message: string) => void): void {
+    this.hub.on(func, method);
   }
 
   disconnect() {
+    this.Connected = false;
+
     this.hub.stop();
     this.removeConnectionID;
   }

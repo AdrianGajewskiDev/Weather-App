@@ -16,9 +16,7 @@ import { ComunicationService } from "../shared/services/comunication.service";
 export class NotificationsRegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private notificationsService: NotificationsService,
-    private communicationService: ComunicationService,
-    private router: Router
+    private notificationsService: NotificationsService
   ) {}
 
   state: "slideIn" | "slideOut" = "slideIn";
@@ -31,7 +29,9 @@ export class NotificationsRegisterComponent implements OnInit {
       CityName: ["", Validators.required],
     });
 
-    this.communicationService.disconnect();
+    this.notificationsService
+      .getNotification()
+      .subscribe((res) => console.log(res));
   }
 
   onSubmit(): void {
@@ -44,7 +44,6 @@ export class NotificationsRegisterComponent implements OnInit {
       .registerToNotifications(model)
       .subscribe((res: any) => {
         localStorage.setItem("userID", res.userID);
-        this.communicationService.connect();
       });
   }
 }

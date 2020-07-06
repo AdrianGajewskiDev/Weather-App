@@ -63,6 +63,8 @@ namespace WeatherApp.API.Services.Implementation
 
         public async Task<IEnumerable<Notification>> GetAllAsync() => await _dbContext.Notifications.ToListAsync();
 
+        public string GetUserID(string email) => _dbContext.Notifications.Where(user => user.UserEmail == email).FirstOrDefault().UserID;
+
         public async Task SendNotification<T>(string userID, T body)
         {
             var connections = _connectionManager.GetConnections(userID);

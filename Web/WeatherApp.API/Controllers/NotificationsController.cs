@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Serilog;
-using System;
+using System.Threading;
 using System.Threading.Tasks;
-using WeatherApp.API.Models.Entities;
 using WeatherApp.API.Models.Request;
 using WeatherApp.API.Services.Services;
 
@@ -46,10 +44,32 @@ namespace WeatherApp.API.Controllers
             return BadRequest("Something bad has happened while trying to add new notification");
         }
 
-        [HttpGet("send/{userID}")]
-        public async Task SendNotifications(string userID)
+        [HttpGet("getUserID/{email}")]
+        public ActionResult<string> GetUserID(string email)
         {
-            await _notificationsService.SendNotification<string>(userID, "Message");
+            string userID = _notificationsService.GetUserID(email);
+
+            if (userID == null)
+                return NotFound($"Cannot find user with email: { email }");
+
+            return Ok(userID);
+        }
+
+        [HttpGet("send")]
+        public async Task SendNotifications()
+        {
+            while(true)
+            {
+                var users = await _notificationsService.GetAllAsync();
+
+                if (users == null) break;
+
+                foreach (var user in users)
+                {
+                    await _notificationsService.SendNotification<string>(user.UserID, "Message");
+                }
+                Thread.Sleep(5000);
+            }
         }
 
     }

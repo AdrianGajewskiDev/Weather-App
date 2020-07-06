@@ -18,8 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private communicationService: ComunicationService,
-    private notificationService: NotificationsService
+    private communicationService: ComunicationService
   ) {}
 
   @Input() color: ThemePalette = "primary";
@@ -41,11 +40,6 @@ export class HomeComponent implements OnInit {
       cityLongitude: [""],
       cityLatitude: [""],
     });
-
-    this.communicationService.connect();
-    this.notificationService
-      .getNotification(localStorage.getItem("userID"))
-      .subscribe((res) => console.log(res));
   }
 
   goToCityIDs(): void {
