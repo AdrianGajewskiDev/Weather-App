@@ -7,6 +7,7 @@ import { slideAnimation } from "../shared/animations/animations";
 import { delay } from "../shared/delay";
 import { ComunicationService } from "../shared/services/comunication.service";
 import { NotificationsService } from "../shared/services/notifications.service";
+import { WeatherNotificationModel } from "../shared/models/weatherNotification.model";
 
 @Component({
   selector: "app-home-component",
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private communicationService: ComunicationService
+    private notificationService: NotificationsService
   ) {}
 
   @Input() color: ThemePalette = "primary";
@@ -40,6 +41,8 @@ export class HomeComponent implements OnInit {
       cityLongitude: [""],
       cityLatitude: [""],
     });
+
+    this.notificationService.requestNotificationPermission();
   }
 
   goToCityIDs(): void {
@@ -47,43 +50,50 @@ export class HomeComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.dataType = this.checkDataType();
-
-    if (this.showError == true) return;
-
-    switch (this.dataType) {
-      case DataType.CityName:
-        {
-          localStorage.setItem("dataType", "cityName");
-          var city = this.form.get("cityName").value;
-          this.state = "slideOut";
-          await delay(300);
-          this.router.navigateByUrl("/weather/" + city);
-          return;
-        }
-        break;
-      case DataType.CityID:
-        {
-          localStorage.setItem("dataType", "cityID");
-          var cityID = this.form.get("cityID").value;
-          this.state = "slideOut";
-          await delay(300);
-          this.router.navigateByUrl("/weather/" + cityID);
-          return;
-        }
-        break;
-      case DataType.LongitudeAndLatitude:
-        {
-          if (this.usingUserLocation == false) {
-            this.useCityGeoLocation(
-              this.form.get("cityLatitude").value,
-              this.form.get("cityLongitude").value
-            );
-            return;
-          }
-        }
-        break;
-    }
+    let model: WeatherNotificationModel = {
+      CityName: "Tczew",
+      TempC: 30,
+      WeatherDescription: "Sunny",
+      ImageUrl: "../../assets/Images/weatherIcons/sunny.png",
+    };
+    this.notificationService
+      .showNotification(model)
+      .subscribe((res) => console.log(res));
+    // this.dataType = this.checkDataType();
+    // if (this.showError == true) return;
+    // switch (this.dataType) {
+    //   case DataType.CityName:
+    //     {
+    //       localStorage.setItem("dataType", "cityName");
+    //       var city = this.form.get("cityName").value;
+    //       this.state = "slideOut";
+    //       await delay(300);
+    //       this.router.navigateByUrl("/weather/" + city);
+    //       return;
+    //     }
+    //     break;
+    //   case DataType.CityID:
+    //     {
+    //       localStorage.setItem("dataType", "cityID");
+    //       var cityID = this.form.get("cityID").value;
+    //       this.state = "slideOut";
+    //       await delay(300);
+    //       this.router.navigateByUrl("/weather/" + cityID);
+    //       return;
+    //     }
+    //     break;
+    //   case DataType.LongitudeAndLatitude:
+    //     {
+    //       if (this.usingUserLocation == false) {
+    //         this.useCityGeoLocation(
+    //           this.form.get("cityLatitude").value,
+    //           this.form.get("cityLongitude").value
+    //         );
+    //         return;
+    //       }
+    //     }
+    //     break;
+    // }
   }
 
   getLocation(): void {

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Routing;
 using Serilog;
 using System.Threading;
 using System.Threading.Tasks;
+using WeatherApp.API.Models;
 using WeatherApp.API.Models.Request;
+using WeatherApp.API.Services;
 using WeatherApp.API.Services.Services;
 
 namespace WeatherApp.API.Controllers
@@ -13,11 +15,13 @@ namespace WeatherApp.API.Controllers
     public class NotificationsController : ControllerBase
     {
         private readonly INotificationsService _notificationsService;
+        private readonly IWeatherService _weatherService;
         private readonly LinkGenerator _linkGenerator;
 
-        public NotificationsController(INotificationsService notificationsService, LinkGenerator linkGenerator)
+        public NotificationsController(INotificationsService notificationsService , IWeatherService weatherService, LinkGenerator linkGenerator)
         {
             _notificationsService = notificationsService;
+            _weatherService = weatherService;
             _linkGenerator = linkGenerator;
         }
 
@@ -66,7 +70,9 @@ namespace WeatherApp.API.Controllers
 
                 foreach (var user in users)
                 {
-                    await _notificationsService.SendNotification<string>(user.UserID, "Message");
+                    var weather = await _weatherService.GetWeatherByCityNameAsync(user.RequestedCityName);
+
+                    await _notificationsService.SendNotification<ApiResponse<WeatherModel>>(user.UserID, weather);
                 }
                 Thread.Sleep(5000);
             }

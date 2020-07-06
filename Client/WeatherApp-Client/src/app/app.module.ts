@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { routes } from "../app/app.routes";
 import { AngularMaterialModule } from "./modules/angular-material/angular-material.module";
+import { PushNotificationsModule } from "ng-push";
 
 import { WeatherService } from "./shared/services/weather.service";
 import { NotificationsService } from "./shared/services/notifications.service";
@@ -37,6 +38,7 @@ import { ComunicationService } from "./shared/services/comunication.service";
     FormsModule,
     AngularMaterialModule,
     HttpClientModule,
+    PushNotificationsModule,
   ],
   providers: [WeatherService, NotificationsService, ComunicationService],
   bootstrap: [AppComponent],
