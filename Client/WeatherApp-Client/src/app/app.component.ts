@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ComunicationService } from "./shared/services/comunication.service";
+import { Weather } from "./shared/models/Weather";
+import { WeatherNotificationModel } from "./shared/models/weatherNotification.model";
+import { NotificationsService } from "./shared/services/notifications.service";
+import { WeatherModel } from "./shared/models/weather.model";
 
 @Component({
   selector: "app-root",
@@ -7,14 +11,22 @@ import { ComunicationService } from "./shared/services/comunication.service";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  constructor(private comunicationService: ComunicationService) {}
+  constructor(
+    private comunicationService: ComunicationService,
+    private notificationService: NotificationsService
+  ) {}
 
   ngOnInit(): void {
-    if (this.comunicationService.connect())
-      this.comunicationService.setSignalRListener("socket", (message) =>
-        console.log(message)
-      );
+    console.log(`User id : ${this.notificationService.GetUserID}`);
+    console.log(
+      `User connection id : ${this.comunicationService.GetConnectionID}`
+    );
+
+    if (this.comunicationService.connect()) {
+      console.log("Connected successfully!!!");
+      this.comunicationService.setSignalRListener("socket");
+    }
   }
 
-  title = "WeatherApp";
+  title = "Weatherealise";
 }

@@ -35,14 +35,14 @@ export class HomeComponent implements OnInit {
   usingUserLocation: boolean = false;
 
   ngOnInit(): void {
+    this.notificationService.requestNotificationPermission();
+
     this.form = this.fb.group({
       cityName: [""],
       cityID: [""],
       cityLongitude: [""],
       cityLatitude: [""],
     });
-
-    this.notificationService.requestNotificationPermission();
   }
 
   goToCityIDs(): void {
@@ -50,50 +50,41 @@ export class HomeComponent implements OnInit {
   }
 
   async onSubmit() {
-    let model: WeatherNotificationModel = {
-      CityName: "Tczew",
-      TempC: 30,
-      WeatherDescription: "Sunny",
-      ImageUrl: "../../assets/Images/weatherIcons/sunny.png",
-    };
-    this.notificationService
-      .showNotification(model)
-      .subscribe((res) => console.log(res));
-    // this.dataType = this.checkDataType();
-    // if (this.showError == true) return;
-    // switch (this.dataType) {
-    //   case DataType.CityName:
-    //     {
-    //       localStorage.setItem("dataType", "cityName");
-    //       var city = this.form.get("cityName").value;
-    //       this.state = "slideOut";
-    //       await delay(300);
-    //       this.router.navigateByUrl("/weather/" + city);
-    //       return;
-    //     }
-    //     break;
-    //   case DataType.CityID:
-    //     {
-    //       localStorage.setItem("dataType", "cityID");
-    //       var cityID = this.form.get("cityID").value;
-    //       this.state = "slideOut";
-    //       await delay(300);
-    //       this.router.navigateByUrl("/weather/" + cityID);
-    //       return;
-    //     }
-    //     break;
-    //   case DataType.LongitudeAndLatitude:
-    //     {
-    //       if (this.usingUserLocation == false) {
-    //         this.useCityGeoLocation(
-    //           this.form.get("cityLatitude").value,
-    //           this.form.get("cityLongitude").value
-    //         );
-    //         return;
-    //       }
-    //     }
-    //     break;
-    // }
+    this.dataType = this.checkDataType();
+    if (this.showError == true) return;
+    switch (this.dataType) {
+      case DataType.CityName:
+        {
+          localStorage.setItem("dataType", "cityName");
+          var city = this.form.get("cityName").value;
+          this.state = "slideOut";
+          await delay(300);
+          this.router.navigateByUrl("/weather/" + city);
+          return;
+        }
+        break;
+      case DataType.CityID:
+        {
+          localStorage.setItem("dataType", "cityID");
+          var cityID = this.form.get("cityID").value;
+          this.state = "slideOut";
+          await delay(300);
+          this.router.navigateByUrl("/weather/" + cityID);
+          return;
+        }
+        break;
+      case DataType.LongitudeAndLatitude:
+        {
+          if (this.usingUserLocation == false) {
+            this.useCityGeoLocation(
+              this.form.get("cityLatitude").value,
+              this.form.get("cityLongitude").value
+            );
+            return;
+          }
+        }
+        break;
+    }
   }
 
   getLocation(): void {

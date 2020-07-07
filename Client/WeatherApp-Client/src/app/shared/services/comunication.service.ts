@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import * as signalR from "@aspnet/signalr";
+import { WeatherNotificationModel } from "../models/weatherNotification.model";
+import { NotificationsService } from "./notifications.service";
 
 @Injectable()
 export class ComunicationService {
-  constructor() {
+  constructor(private notificationsService: NotificationsService) {
     this.hub = new signalR.HubConnectionBuilder()
       .withUrl(this.hubUrl)
-      .configureLogging(signalR.LogLevel.Debug)
+      .configureLogging(signalR.LogLevel.Information)
       .build();
   }
 
@@ -30,8 +32,10 @@ export class ComunicationService {
   connect(): boolean {
     let userID = localStorage.getItem("userID");
 
-    if (userID === null || userID == undefined) return false;
-
+    if (userID === null || userID == undefined) {
+      this.removeConnectionID();
+      return false;
+    }
     this.hub.start().then(() =>
       this.hub
         .invoke("GetConnectionID", userID)
@@ -42,12 +46,30 @@ export class ComunicationService {
           console.error(err.toString());
         })
     );
+
     this.Connected = true;
+    console.log(this.hub);
+
     return true;
   }
 
-  setSignalRListener(func, method: (message: string) => void): void {
-    this.hub.on(func, method);
+  setSignalRListener(func): void {
+    console.log("Setting up listener....");
+
+    this.hub.on(func, (res) => {
+      console.log("here");
+
+      let model: WeatherNotificationModel = {
+        CityName: res.responseBody.name,
+        ImageUrl: "../../../assets/Images/weatherIcons/sunny.png",
+        TempC: res.responseBody.main.tempC,
+        WeatherDescription: res.responseBody.weather[0].description,
+      };
+
+      this.notificationsService.showNotification(model).subscribe(() => {
+        console.log("showing");
+      });
+    });
   }
 
   disconnect() {

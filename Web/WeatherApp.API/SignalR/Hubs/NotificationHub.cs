@@ -22,7 +22,7 @@ namespace WeatherApp.API.SignalR.Hubs
         {
             if(_signalRConnectionsManager.GetConnections(userID) != null)
             {
-                return _signalRConnectionsManager.GetConnections(userID).First();
+                return _signalRConnectionsManager.GetConnections(userID).FirstOrDefault();
             }
 
             _signalRConnectionsManager.AddConnection(userID, Context.ConnectionId);
@@ -40,6 +40,7 @@ namespace WeatherApp.API.SignalR.Hubs
         {
             Log.Information($"Diconnecting on Notifications hub from { Context.ConnectionId} ");
 
+            _signalRConnectionsManager.RemoveConnection(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
     }

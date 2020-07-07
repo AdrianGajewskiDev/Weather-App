@@ -39,9 +39,20 @@
       </form>
     </mat-card-content>
     <mat-card-actions class="action" fxLayoutAlign="center start">
-      <button (click)="onSubmit()" mat-raised-button [color]="color">
+      <button
+        (click)="onSubmit()"
+        mat-raised-button
+        [color]="color"
+        [disabled]="form.invalid"
+      >
         Send me Notifications
       </button>
     </mat-card-actions>
+    <!--This is just for testing purpose-->
+    <!--TODO: remove this when connecting to server is fully working-->
+    <div>
+      <p>User ID: {{ testUserId }}</p>
+      <p>User Connection ID: {{ testUserConnectionID }}</p>
+    </div>
   </mat-card>
 </div>

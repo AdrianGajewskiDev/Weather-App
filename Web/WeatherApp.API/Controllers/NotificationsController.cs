@@ -18,7 +18,7 @@ namespace WeatherApp.API.Controllers
         private readonly IWeatherService _weatherService;
         private readonly LinkGenerator _linkGenerator;
 
-        public NotificationsController(INotificationsService notificationsService , IWeatherService weatherService, LinkGenerator linkGenerator)
+        public NotificationsController(INotificationsService notificationsService, IWeatherService weatherService, LinkGenerator linkGenerator)
         {
             _notificationsService = notificationsService;
             _weatherService = weatherService;
@@ -59,10 +59,12 @@ namespace WeatherApp.API.Controllers
             return Ok(userID);
         }
 
+        //This is a temporary method to test connection with client trought SignalR
+        //TODO: Replace this with real time function to send notifications
         [HttpGet("send")]
         public async Task SendNotifications()
         {
-            while(true)
+            while (true)
             {
                 var users = await _notificationsService.GetAllAsync();
 
@@ -74,8 +76,10 @@ namespace WeatherApp.API.Controllers
 
                     await _notificationsService.SendNotification<ApiResponse<WeatherModel>>(user.UserID, weather);
                 }
+
                 Thread.Sleep(5000);
             }
+         
         }
 
     }

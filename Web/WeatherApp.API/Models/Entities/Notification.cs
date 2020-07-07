@@ -12,10 +12,12 @@ namespace WeatherApp.API.Models.Entities
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [MaxLength(length:100)]
         public string UserEmail { get; set; }
 
         [Required]
         [MaxLength(length: 50)]
         public string RequestedCityName { get; set; }
     }
+
 }

@@ -2,14 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherApp.API.Data.Database;
 
 namespace WeatherApp.API.Migrations
 {
     [DbContext(typeof(WeatherAppDatabaseContext))]
-    partial class WeatherAppDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200707173157_add validation to Notification Entity")]
+    partial class addvalidationtoNotificationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
