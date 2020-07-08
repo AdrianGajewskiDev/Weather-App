@@ -39,7 +39,7 @@ namespace WeatherApp.API.Controllers
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityID(int id)
         {
 
-            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
+            //Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
 
             var response = await _weatherService.GetWeatherByCityIDAsync(id);
 
@@ -53,7 +53,7 @@ namespace WeatherApp.API.Controllers
         [HttpGet("currentWeatherByCityCoord")]
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityCoord([FromQuery]Coord coord)
         {
-            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
+            //Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
 
             var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
 
