@@ -24,7 +24,7 @@ namespace WeatherApp.API.Controllers
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityName(string city)
         {
        
-            Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
+            //Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
             var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
             if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)

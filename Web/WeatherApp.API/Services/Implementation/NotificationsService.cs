@@ -69,7 +69,7 @@ namespace WeatherApp.API.Services.Implementation
         {
             var connections = _connectionManager.GetConnections(userID);
 
-            if(connections != null & connections.Count > 0)
+            if (connections != null & connections.Count > 0)
             {
                 foreach (var connection in connections)
                 {
