@@ -32,11 +32,7 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
       <h1>{{ weatherDetails.name }}</h1>
-      <img
-        class="img-weatherCondition"
-        src="../../assets/Images/weatherIcons/sunny.png"
-        alt=""
-      />
+      <img class="img-weatherCondition" [src]="currentWeatherImage" alt="" />
       <p>{{ weatherDetails.weather[0].description }}</p>
     </div>
     <div class="weatherDetails" *ngIf="showError == false">

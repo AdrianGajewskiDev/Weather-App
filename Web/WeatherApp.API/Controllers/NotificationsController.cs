@@ -49,14 +49,10 @@ namespace WeatherApp.API.Controllers
         }
 
         [HttpGet("getUserID/{email}")]
-        public ActionResult<string> GetUserID(string email)
+        public ActionResult<string> GetUserConnectionID(string userID)
         {
-            string userID = _notificationsService.GetUserID(email);
 
-            if (userID == null)
-                return NotFound($"Cannot find user with email: { email }");
-
-            return Ok(userID);
+            return Ok();
         }
 
         //This is a temporary method to test connection with client trought SignalR

@@ -23,31 +23,61 @@ namespace WeatherApp.API.Services
 
         public async Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {
-          
+
             if (coordinates == null)
             {
                 Log.Error("City coordinates are null");
 
                 throw new ArgumentNullException(nameof(coordinates));
             }
-            var requestURl = _applicationData.OWMUrl + $"lat={coordinates.Lat}&lon={coordinates.Lon}&" + "appid=" + _applicationData.OWMApiKey;
-            var response = await _clientService.GetAsync<WeatherModel>(requestURl);
+           
+            try
+            {
+                var requestURl = _applicationData.OWMUrl + $"lat={coordinates.Lat}&lon={coordinates.Lon}&" + "appid=" + _applicationData.OWMApiKey;
+                var response = await _clientService.GetAsync<WeatherModel>(requestURl);
+                return response;
 
-            return response;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Debug(ex, "A invalid content type");
+                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+            }
+
+
         }
 
         public async Task<ApiResponse<WeatherModel>> GetWeatherByCityIDAsync(int cityID)
         {
-            var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"id={cityID}&" + "appid=" + _applicationData.OWMApiKey);
+            try
+            {
+                var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"id={cityID}&" + "appid=" + _applicationData.OWMApiKey);
 
-            return response;
+                return response;
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Debug(ex, "A invalid content type");
+                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+            }
+
         }
 
         public async Task<ApiResponse<WeatherModel>> GetWeatherByCityNameAsync(string cityName)
         {
-            var response = await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"q={cityName}&" + "appid=" + _applicationData.OWMApiKey);
+            try
+            {
+                var response =  await _clientService.GetAsync<WeatherModel>(_applicationData.OWMUrl + $"q={cityName}&" + "appid=" + _applicationData.OWMApiKey);
 
-            return response;
+                return response;
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Debug(ex, "A invalid content type");
+                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+            }
         }
     }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-
+import { determineCurrentWeatherImage } from "../shared/weatherConditions/weatherDescriptions";
 import { ActivatedRoute, Router } from "@angular/router";
 import { WeatherModel } from "../shared/models/weather.model";
 import { WeatherService } from "../shared/services/weather.service";
 import { slideAnimation } from "../shared/animations/animations";
 import { delay } from "../shared/delay";
 import Coord from "../shared/models/Coord";
+import { WeatherImagesUrls } from "../shared/weatherConditions/weatherImagesUrls";
 
 @Component({
   selector: "app-weather",
@@ -33,6 +34,7 @@ export class WeatherComponent implements OnInit {
   lat?: number;
   lon?: number;
   windDegImageUrl: string = "";
+  currentWeatherImage: string = "";
   errorMessage: string = "";
 
   ngOnInit(): void {
@@ -51,6 +53,11 @@ export class WeatherComponent implements OnInit {
               this.showLoadingSpinner = false;
               this.showError = false;
               this.checkWindDeg();
+              this.currentWeatherImage = determineCurrentWeatherImage(
+                this.weatherDetails.weather[0].main
+              );
+              console.log(res);
+              console.log(this.currentWeatherImage);
             },
             (error) => {
               this.showLoadingSpinner = false;
@@ -70,6 +77,9 @@ export class WeatherComponent implements OnInit {
               this.showError = false;
 
               this.checkWindDeg();
+              this.currentWeatherImage = determineCurrentWeatherImage(
+                this.weatherDetails.weather[0].main
+              );
             },
             (error) => {
               this.showLoadingSpinner = false;
@@ -90,6 +100,9 @@ export class WeatherComponent implements OnInit {
                 this.showError = false;
 
                 this.checkWindDeg();
+                this.currentWeatherImage = determineCurrentWeatherImage(
+                  this.weatherDetails.weather[0].main
+                );
               },
               (error) => {
                 this.showError = true;

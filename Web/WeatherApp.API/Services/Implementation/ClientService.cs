@@ -2,7 +2,6 @@
 using Serilog;
 using System;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using WeatherApp.API.Models;
 
@@ -49,7 +48,6 @@ namespace WeatherApp.API.Services
                 ResponseBody = (T)(resJSON),
                 StatusCode = System.Net.HttpStatusCode.OK
             };
-
         }
 
         public Task<ApiResponse<T>> PostAsync<T>(object body)
