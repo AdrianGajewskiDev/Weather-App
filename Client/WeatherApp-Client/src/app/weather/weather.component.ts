@@ -43,41 +43,27 @@ export class WeatherComponent implements OnInit {
     console.log(this.dataType);
 
     switch (this.dataType) {
-      case "cityName": {
-        this.weatherService.getWeatherByCity(this.data).subscribe(
-          (res) => {
-            this.weatherDetails = res.responseBody;
-            this.showLoadingSpinner = false;
-            this.showError = false;
-            this.checkWindDeg();
-          },
-          (error) => {
-            this.showError = true;
-            this.errorMessage = `Cannot find a weather for ${this.data}`;
-            this.showLoadingSpinner = false;
-          }
-        );
-      }
-      case "cityID": {
-        this.weatherService.getWeatherByCityID(parseInt(this.data)).subscribe(
-          (res) => {
-            this.weatherDetails = res.responseBody;
-            this.showLoadingSpinner = false;
-            this.showError = false;
+      case "cityName":
+        {
+          this.weatherService.getWeatherByCity(this.data).subscribe(
+            (res) => {
+              this.weatherDetails = res.responseBody;
+              this.showLoadingSpinner = false;
+              this.showError = false;
+              this.checkWindDeg();
+            },
+            (error) => {
+              this.showLoadingSpinner = false;
+              this.showError = true;
+              this.errorMessage = `Cannot find a weather for ${this.data}`;
+            }
+          );
+        }
+        break;
 
-            this.checkWindDeg();
-          },
-          (error) => {
-            this.showError = true;
-            this.errorMessage = `Cannot find a city with id of ${this.data}`;
-            this.showLoadingSpinner = false;
-          }
-        );
-      }
-      case "cityCoord": {
-        this.weatherService
-          .getWeatherByCityCoord(new Coord(this.lon, this.lat))
-          .subscribe(
+      case "cityID":
+        {
+          this.weatherService.getWeatherByCityID(parseInt(this.data)).subscribe(
             (res) => {
               this.weatherDetails = res.responseBody;
               this.showLoadingSpinner = false;
@@ -86,10 +72,31 @@ export class WeatherComponent implements OnInit {
               this.checkWindDeg();
             },
             (error) => {
+              this.showLoadingSpinner = false;
               this.showError = true;
+              this.errorMessage = `Cannot find a city with id of ${this.data}`;
             }
           );
-      }
+        }
+        break;
+      case "cityCoord":
+        {
+          this.weatherService
+            .getWeatherByCityCoord(new Coord(this.lon, this.lat))
+            .subscribe(
+              (res) => {
+                this.weatherDetails = res.responseBody;
+                this.showLoadingSpinner = false;
+                this.showError = false;
+
+                this.checkWindDeg();
+              },
+              (error) => {
+                this.showError = true;
+              }
+            );
+        }
+        break;
     }
     localStorage.removeItem("dataType");
   }
