@@ -48,11 +48,15 @@ namespace WeatherApp.API.Controllers
             return BadRequest("Something bad has happened while trying to add new notification");
         }
 
-        [HttpGet("getUserID/{email}")]
+        [HttpGet("getUserID/{userID}")]
         public ActionResult<string> GetUserConnectionID(string userID)
         {
+            string userConnectionID = _notificationsService.GetUserConnectionID(userID);
 
-            return Ok();
+            if(!string.IsNullOrEmpty(userConnectionID))
+                return Ok();
+
+            return NotFound($"Cannot find connections for id of { userID }");
         }
 
         //This is a temporary method to test connection with client trought SignalR

@@ -2,10 +2,15 @@ import { Injectable } from "@angular/core";
 import * as signalR from "@aspnet/signalr";
 import { WeatherNotificationModel } from "../models/weatherNotification.model";
 import { NotificationsService } from "./notifications.service";
+import { determineCurrentWeatherImage } from "../weatherConditions/weatherDescriptions";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class ComunicationService {
-  constructor(private notificationsService: NotificationsService) {
+  constructor(
+    private notificationsService: NotificationsService,
+    private client: HttpClient
+  ) {
     this.hub = new signalR.HubConnectionBuilder()
       .withUrl(this.hubUrl)
       .configureLogging(signalR.LogLevel.Information)
@@ -27,6 +32,13 @@ export class ComunicationService {
 
   removeConnectionID(): void {
     localStorage.removeItem("connectionID");
+  }
+
+  tryGetConnectionID(userID) {
+    console.log("Getting");
+
+    let url = `https://localhost:44377/api/Notifications/getUserID/${userID}`;
+    return this.client.get(url);
   }
 
   connect(): boolean {
@@ -61,7 +73,9 @@ export class ComunicationService {
 
       let model: WeatherNotificationModel = {
         CityName: res.responseBody.name,
-        ImageUrl: "../../../assets/Images/weatherIcons/sunny.png",
+        ImageUrl: determineCurrentWeatherImage(
+          res.responseBody.weather[0].main
+        ),
         TempC: res.responseBody.main.tempC,
         WeatherDescription: res.responseBody.weather[0].description,
       };

@@ -12,5 +12,6 @@ namespace WeatherApp.API.Services.Services
         Task SendNotification<T>(string userID, T body);
         string GenerateUserID();
         string GetUserID(string email);
+        string GetUserConnectionID(string userID);
     }
 }

@@ -36,10 +36,23 @@ export class NotificationsRegisterComponent implements OnInit {
       Email: ["", [Validators.required, Validators.email]],
       CityName: ["", Validators.required],
     });
-    console.log(`Calling from id: ${localStorage.getItem("userID")}`);
 
-    if (this.notificationsService.GetUserID != null || undefined)
-      this.notificationsService.getNotification().subscribe();
+    if (this.comunicationService.GetConnectionID == null) {
+      console.log("here");
+
+      this.comunicationService
+        .tryGetConnectionID(this.notificationsService.GetUserID)
+        .subscribe((res) => {
+          if (res != null || undefined)
+            this.comunicationService.setConnectionID(res as string);
+
+          this.notificationsService.getNotification().subscribe();
+        });
+
+      return;
+    }
+
+    this.notificationsService.getNotification().subscribe();
   }
 
   onSubmit(): void {
