@@ -21,7 +21,7 @@ namespace WeatherApp.API.Services
         }
 
 
-        public async Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates)
+        public async Task<WeatherModel> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {
 
             if (coordinates == null)
@@ -41,13 +41,13 @@ namespace WeatherApp.API.Services
             catch (InvalidOperationException ex)
             {
                 Log.Debug(ex, "A invalid content type");
-                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+                return null;
             }
 
 
         }
 
-        public async Task<ApiResponse<WeatherModel>> GetWeatherByCityIDAsync(int cityID)
+        public async Task<WeatherModel> GetWeatherByCityIDAsync(int cityID)
         {
             try
             {
@@ -59,12 +59,12 @@ namespace WeatherApp.API.Services
             catch (InvalidOperationException ex)
             {
                 Log.Debug(ex, "A invalid content type");
-                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+                return null;
             }
 
         }
 
-        public async Task<ApiResponse<WeatherModel>> GetWeatherByCityNameAsync(string cityName)
+        public async Task<WeatherModel> GetWeatherByCityNameAsync(string cityName)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace WeatherApp.API.Services
             catch (InvalidOperationException ex)
             {
                 Log.Debug(ex, "A invalid content type");
-                return new ApiResponse<WeatherModel>() { ResponseBody = null, StatusCode = System.Net.HttpStatusCode.BadRequest };
+                return null;
             }
         }
     }

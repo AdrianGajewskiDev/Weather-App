@@ -17,7 +17,7 @@ namespace WeatherApp.API.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<ApiResponse<T>> GetAsync<T>(string url) where T: class, new()
+        public async Task<T> GetAsync<T>(string url) where T: class, new()
         {
             var client = _clientFactory.CreateClient();
 
@@ -26,11 +26,7 @@ namespace WeatherApp.API.Services
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound || response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 Log.Information($"Cannot find weather for {url}");
-                return new ApiResponse<T>
-                {
-                    StatusCode = response.StatusCode,
-                    ResponseBody = default
-                };
+                return default;
             }
 
             string responseContent = await response.Content.ReadAsStringAsync();
@@ -43,14 +39,10 @@ namespace WeatherApp.API.Services
 
             var resJSON = JsonConvert.DeserializeObject(responseContent, typeof(T));
 
-            return new ApiResponse<T>
-            {
-                ResponseBody = (T)(resJSON),
-                StatusCode = System.Net.HttpStatusCode.OK
-            };
+            return (T)resJSON;
         }
 
-        public Task<ApiResponse<T>> PostAsync<T>(object body)
+        public Task<T> PostAsync<T>(object body)
         {
             throw new System.NotImplementedException();
         }

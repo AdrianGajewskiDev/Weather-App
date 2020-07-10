@@ -27,8 +27,8 @@ namespace WeatherApp.Tests.ServicesTests
                 title = "hello"
             };
 
-            Assert.IsType<PostModel>(response.ResponseBody);
-            Assert.Equal(expected.title, response.ResponseBody.title);
+            Assert.IsType<PostModel>(response);
+            Assert.Equal(expected.title, response.title);
         }
 
         [Fact]

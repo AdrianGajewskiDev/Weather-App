@@ -4,5 +4,6 @@
     {
         public string OWMApiKey { get; set; }
         public string OWMUrl { get; set; }
+        public string OWMForecastUrl { get; set; }
     }
 }

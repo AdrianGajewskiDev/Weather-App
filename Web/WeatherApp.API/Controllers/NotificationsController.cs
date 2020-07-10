@@ -74,7 +74,13 @@ namespace WeatherApp.API.Controllers
                 {
                     var weather = await _weatherService.GetWeatherByCityNameAsync(user.RequestedCityName);
 
-                    await _notificationsService.SendNotification<ApiResponse<WeatherModel>>(user.UserID, weather);
+                    var message = new ApiResponse<WeatherModel>
+                    {
+                        ResponseBody = weather,
+                        StatusCode = System.Net.HttpStatusCode.OK
+                    };
+
+                    await _notificationsService.SendNotification<ApiResponse<WeatherModel>>(user.UserID, message);
                 }
 
                 Thread.Sleep(5000);

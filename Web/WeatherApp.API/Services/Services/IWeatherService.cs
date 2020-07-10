@@ -6,9 +6,9 @@ namespace WeatherApp.API.Services
 {
     public interface IWeatherService
     {
-        Task<ApiResponse<WeatherModel>> GetWeatherByCityNameAsync(string cityName);
-        Task<ApiResponse<WeatherModel>> GetWeatherByCityIDAsync(int cityID);
-        Task<ApiResponse<WeatherModel>> GetWeatherByCityCoordinatesAsync(Coord coordinates);
+        Task<WeatherModel> GetWeatherByCityNameAsync(string cityName);
+        Task<WeatherModel> GetWeatherByCityIDAsync(int cityID);
+        Task<WeatherModel> GetWeatherByCityCoordinatesAsync(Coord coordinates);
 
     }
 }

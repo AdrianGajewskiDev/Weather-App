@@ -27,10 +27,16 @@ namespace WeatherApp.API.Controllers
             //Log.Information($"Getting Current Weather by city id from {Request.Headers["Origin"]}");
             var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                return NotFound($"Cannot find a weather for {city}");
+            if (response == null)
+                return NotFound($"Cannot find weather for ${ city}");
 
-            return response;
+            var result = new ApiResponse<WeatherModel> 
+            {
+                ResponseBody = response,
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+
+            return result;
         }
 
 
@@ -43,10 +49,16 @@ namespace WeatherApp.API.Controllers
 
             var response = await _weatherService.GetWeatherByCityIDAsync(id);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (response == null)
                 return NotFound($"Cannot find city with id of {id}");
 
-            return response;
+            var result = new ApiResponse<WeatherModel>
+            {
+                ResponseBody = response,
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+
+            return result;
         }
 
         //api/weather/currentweather
@@ -57,10 +69,16 @@ namespace WeatherApp.API.Controllers
 
             var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (response == null)
                 return NotFound($"Cannot find city with coords of {coord}");
 
-            return response;
+            var result = new ApiResponse<WeatherModel>
+            {
+                ResponseBody = response,
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+
+            return result;
         }
 
 

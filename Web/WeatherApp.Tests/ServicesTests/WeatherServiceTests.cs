@@ -39,7 +39,7 @@ namespace WeatherApp.Tests.ServicesTests
             var result =await weatherService.GetWeatherByCityNameAsync(name);
 
             Assert.NotNull(result);
-            Assert.IsType<WeatherModel>(result.ResponseBody);
+            Assert.IsType<WeatherModel>(result);
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace WeatherApp.Tests.ServicesTests
             var result = await weatherService.GetWeatherByCityIDAsync(id);
 
             Assert.NotNull(result);
-            Assert.IsType<WeatherModel>(result.ResponseBody);
+            Assert.IsType<WeatherModel>(result);
         }
     }
 }

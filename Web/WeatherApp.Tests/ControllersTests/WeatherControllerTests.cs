@@ -162,7 +162,7 @@ namespace WeatherApp.Tests.ControllersTests
             IWeatherService weatherService = new WeatherService(clientService, Options.Create<ApplicationData>(applicationData));
 
             var weather = await weatherService.GetWeatherByCityNameAsync(city);
-            var json = JsonConvert.SerializeObject(weather.ResponseBody);
+            var json = JsonConvert.SerializeObject(weather);
 
             File.WriteAllText(path,json);
         }

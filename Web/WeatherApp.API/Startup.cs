@@ -32,6 +32,7 @@ namespace WeatherApp.API
             {
                 conf.OWMApiKey = Configuration["OpenWeatherApi:ApiKey"];
                 conf.OWMUrl = Configuration["OpenWeatherApi:Url"];
+                conf.OWMForecastUrl = Configuration["OpenWeatherApi:ForecastUrl"];
             });
 
             services.AddDevDatabaseContext(Configuration);
