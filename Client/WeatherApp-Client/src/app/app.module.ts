@@ -8,6 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { routes } from "../app/app.routes";
 import { AngularMaterialModule } from "./modules/angular-material/angular-material.module";
 import { PushNotificationsModule } from "ng-push";
+import { ChartsModule } from "ng2-charts";
 
 import { WeatherService } from "./shared/services/weather.service";
 import { NotificationsService } from "./shared/services/notifications.service";
@@ -20,7 +21,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { WeatherComponent } from "./weather/weather.component";
 import { NotificationsRegisterComponent } from "./notifications-register/notifications-register.component";
 import { ComunicationService } from "./shared/services/comunication.service";
-import { LongWeatherForecastComponent } from './long-weather-forecast/long-weather-forecast.component';
+import { LongWeatherForecastComponent } from "./long-weather-forecast/long-weather-forecast.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { LongWeatherForecastComponent } from './long-weather-forecast/long-weath
     AngularMaterialModule,
     HttpClientModule,
     PushNotificationsModule,
+    ChartsModule,
   ],
   providers: [WeatherService, NotificationsService, ComunicationService],
   bootstrap: [AppComponent],
