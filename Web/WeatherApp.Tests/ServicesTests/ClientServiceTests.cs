@@ -10,7 +10,6 @@ namespace WeatherApp.Tests.ServicesTests
 {
     public class ClientServiceTests
     {
-        [Fact]
         public async Task Client_Service_Should_Return_APIResponse_With_Specified_Return_Type()
         {
             var mockFactory = new Mock<IHttpClientFactory>();
