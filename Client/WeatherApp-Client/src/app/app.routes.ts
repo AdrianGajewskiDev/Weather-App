@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { HomeComponent } from "./home-component/home-component";
 import { WeatherComponent } from "./weather/weather.component";
 import { NotificationsRegisterComponent } from "./notifications-register/notifications-register.component";
+import { LongWeatherForecastComponent } from "./long-weather-forecast/long-weather-forecast.component";
 
 export const routes: Routes = [
   {
@@ -23,5 +24,9 @@ export const routes: Routes = [
   {
     path: "registerNotification",
     component: NotificationsRegisterComponent,
+  },
+  {
+    path: "forecast/:city",
+    component: LongWeatherForecastComponent,
   },
 ];

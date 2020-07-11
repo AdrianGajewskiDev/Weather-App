@@ -20,6 +20,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { WeatherComponent } from "./weather/weather.component";
 import { NotificationsRegisterComponent } from "./notifications-register/notifications-register.component";
 import { ComunicationService } from "./shared/services/comunication.service";
+import { LongWeatherForecastComponent } from './long-weather-forecast/long-weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ComunicationService } from "./shared/services/comunication.service";
     FooterComponent,
     WeatherComponent,
     NotificationsRegisterComponent,
+    LongWeatherForecastComponent,
   ],
   imports: [
     BrowserModule,
