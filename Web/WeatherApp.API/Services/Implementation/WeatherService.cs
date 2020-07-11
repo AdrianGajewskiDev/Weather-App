@@ -20,6 +20,22 @@ namespace WeatherApp.API.Services
             _applicationData = applicationData.Value;
         }
 
+        public async Task<LongWeatherForecastModel> GetLongWeatherForecastAsync(string cityName)
+        {
+            try
+            {
+                var requestUrl = _applicationData.OWMForecastUrl + $"q={cityName}&appid={_applicationData.OWMApiKey}";
+                var response = await _clientService.GetAsync<LongWeatherForecastModel>(requestUrl);
+
+                return response;
+            }
+            catch (InvalidOperationException ex)
+            {
+
+                Log.Debug(ex, "A invalid content type");
+                return null;
+            }
+        }
 
         public async Task<WeatherModel> GetWeatherByCityCoordinatesAsync(Coord coordinates)
         {

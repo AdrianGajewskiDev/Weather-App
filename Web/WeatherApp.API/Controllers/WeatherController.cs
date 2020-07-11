@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Linq;
 using System.Threading.Tasks;
+using WeatherApp.API.Extensions;
+using WeatherApp.API.Helpers;
 using WeatherApp.API.Models;
 using WeatherApp.API.Models.WeatherDetails;
 using WeatherApp.API.Services;
@@ -28,7 +31,15 @@ namespace WeatherApp.API.Controllers
             var response = await _weatherService.GetWeatherByCityNameAsync(city);
 
             if (response == null)
-                return NotFound($"Cannot find weather for ${ city}");
+            {
+                var res = new ApiResponse<string>
+                {
+                    ResponseBody = $"Cannot find weather for ${ city}",
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+
+                return NotFound(res);
+            }
 
             var result = new ApiResponse<WeatherModel> 
             {
@@ -36,7 +47,7 @@ namespace WeatherApp.API.Controllers
                 StatusCode = System.Net.HttpStatusCode.OK
             };
 
-            return result;
+            return Ok(result);
         }
 
 
@@ -50,7 +61,15 @@ namespace WeatherApp.API.Controllers
             var response = await _weatherService.GetWeatherByCityIDAsync(id);
 
             if (response == null)
-                return NotFound($"Cannot find city with id of {id}");
+            {
+                var res = new ApiResponse<string>
+                {
+                    ResponseBody = $"Cannot find city with id of {id}",
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+
+                return NotFound(res);
+            }
 
             var result = new ApiResponse<WeatherModel>
             {
@@ -58,10 +77,10 @@ namespace WeatherApp.API.Controllers
                 StatusCode = System.Net.HttpStatusCode.OK
             };
 
-            return result;
+            return Ok(result);
+
         }
 
-        //api/weather/currentweather
         [HttpGet("currentWeatherByCityCoord")]
         public async Task<ActionResult<ApiResponse<WeatherModel>>> GetCurrentWeatherByCityCoord([FromQuery]Coord coord)
         {
@@ -70,7 +89,15 @@ namespace WeatherApp.API.Controllers
             var response = await _weatherService.GetWeatherByCityCoordinatesAsync(coord);
 
             if (response == null)
-                return NotFound($"Cannot find city with coords of {coord}");
+            {
+                var res = new ApiResponse<string>
+                {
+                    ResponseBody = $"Cannot find city with coords of {coord}",
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+
+                return NotFound(res);
+            }
 
             var result = new ApiResponse<WeatherModel>
             {
@@ -78,9 +105,40 @@ namespace WeatherApp.API.Controllers
                 StatusCode = System.Net.HttpStatusCode.OK
             };
 
-            return result;
+            return Ok(result);
         }
 
+        [HttpGet("longWeatherForecast/{cityName}")]
+        public async Task<ActionResult<ApiResponse<LongWeatherForecastModel>>> GetLongWeatherForecast(string cityName)
+        {
+            var response = await _weatherService.GetLongWeatherForecastAsync(cityName);
 
+            if (response == null)
+            {
+                var res = new ApiResponse<string>
+                {
+                    ResponseBody = $"Cannot find weather for ${ cityName}",
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+
+                return NotFound(res);
+            }
+
+
+            var resultModel = new LongWeatherForecastModel 
+            {
+                List =  WeatherForecastHelper.GetFilteredItems(response.List),
+                City = response.City
+            };
+
+
+            var result = new ApiResponse<LongWeatherForecastModel>
+            {
+                ResponseBody = resultModel,
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+
+            return Ok(result);
+        }
     }
 }

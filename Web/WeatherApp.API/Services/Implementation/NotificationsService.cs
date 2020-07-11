@@ -22,7 +22,8 @@ namespace WeatherApp.API.Services.Implementation
         private readonly IHubContext<NotificationHub> _hubContext;
         private readonly ISignalRConnectionsManager _connectionManager;
 
-        public NotificationsService(WeatherAppDatabaseContext dbContext, IMapper mapper, IHubContext<NotificationHub> hubContext, ISignalRConnectionsManager connectionManager)
+        public NotificationsService(WeatherAppDatabaseContext dbContext, IMapper mapper, IHubContext<NotificationHub> hubContext, 
+            ISignalRConnectionsManager connectionManager)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -39,15 +40,13 @@ namespace WeatherApp.API.Services.Implementation
                 throw new ArgumentNullException(nameof(notification), "Notification param was null");
             }
 
+            notification.UserID = GenerateUserID();
+
             var notificationEntity = _mapper.Map<Notification>(notification);
 
              _dbContext.Add(notificationEntity);
 
-            if (await _dbContext.SaveChangesAsync() > 0)
-                return true;
-
-            return false;
-
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public string GenerateUserID()

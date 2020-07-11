@@ -9,6 +9,7 @@ namespace WeatherApp.API.Services
         Task<WeatherModel> GetWeatherByCityNameAsync(string cityName);
         Task<WeatherModel> GetWeatherByCityIDAsync(int cityID);
         Task<WeatherModel> GetWeatherByCityCoordinatesAsync(Coord coordinates);
+        Task<LongWeatherForecastModel> GetLongWeatherForecastAsync(string cityName);
 
     }
 }
