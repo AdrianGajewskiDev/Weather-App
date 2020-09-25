@@ -178,4 +178,8 @@ export class WeatherComponent implements OnInit {
       return;
     }
   }
+
+  getFiveDaysForecast(): void {
+    this.router.navigateByUrl("/forecast/Tczew");
+  }
 }
