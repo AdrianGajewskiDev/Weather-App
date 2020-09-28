@@ -9,5 +9,6 @@ namespace WeatherApp.API.Models
         public Coord Coord { get; set; }
         public string Country { get; set; }
         public double Population { get; set; }
+        public float Timezone { get; set; }
     }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ChartDataSets, ChartOptions } from "chart.js";
 import { Color, Label } from "ng2-charts";
+import { LongWeatherForecastModel } from "../shared/models/longWeatherForecastModel";
 
 @Component({
   selector: "app-line-chart",
@@ -10,27 +11,21 @@ import { Color, Label } from "ng2-charts";
 export class LineChartComponent implements OnInit {
   constructor() {}
 
-  lineChartData: ChartDataSets[] = [
-    { data: [85, 72, 78, 75, 77, 75], label: "Crude oil prices" },
-  ];
+  @Input() dataSets: LongWeatherForecastModel;
 
-  lineChartLabels: Label[] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-  ];
+  lineChartData: ChartDataSets[] = [];
 
-  lineChartOptions = {
+  lineChartLabels: Label[] = [];
+
+  lineChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
   };
 
   lineChartColors: Color[] = [
     {
       borderColor: "black",
-      backgroundColor: "rgba(255,255,0,0.28)",
+      backgroundColor: "#FF0004",
     },
   ];
 
@@ -38,5 +33,12 @@ export class LineChartComponent implements OnInit {
   lineChartPlugins = [];
   lineChartType = "line";
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.lineChartData.push({
+      data: this.dataSets.list.map((x) => x.main.tempC),
+      label: "Temperature",
+    });
+
+    this.lineChartLabels.push(...this.dataSets.list.map((x) => x.dayName));
+  }
 }

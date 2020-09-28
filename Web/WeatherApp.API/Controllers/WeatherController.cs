@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Serilog;
-using System.Linq;
 using System.Threading.Tasks;
-using WeatherApp.API.Extensions;
 using WeatherApp.API.Helpers;
 using WeatherApp.API.Models;
 using WeatherApp.API.Models.WeatherDetails;

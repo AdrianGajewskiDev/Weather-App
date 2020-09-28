@@ -6,28 +6,156 @@
   display: flex;
   padding: 15px;
 }
+.loadingSpinner-table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.left-content {
+  width: 75%;
+  height: 100%;
+}
+
+.right-content {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
 
 .chart {
-  width: 70%;
+  width: 100%;
+  height: 50%;
+}
+
+.weatherDetails {
+  width: 100%;
+  height: 50%;
+  border-radius: 15px;
+  background-color: #439cef;
+  display: flex;
+}
+
+.caption {
+  height: 20%;
+}
+
+.table {
+  height: 80%;
+  padding-left: 10px;
+}
+
+.table-row {
+  cursor: pointer;
+}
+
+.table-row:hover {
+  background-color: #439cef;
 }
 
 .details {
-  width: 30%;
+  width: 75%;
+  height: 100%;
 }
 
-@media (max-width: 767px) {
-  .chart-container {
-    padding: 5px;
+.captions {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-    flex-direction: column !important;
-  }
+.captions h2 {
+  background-color: #3f51b5;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 10px;
+  border-radius: 15px;
+}
 
-  .chart {
-    width: 100%;
-    height: 60%;
-  }
-  .details {
-    width: 100%;
-    height: 40%;
-  }
+.details-table {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image {
+  width: 25%;
+  background: #c4c4c4;
+}
+
+.image img {
+  max-width: 100%;
+  max-height: 100%;
+  background-color: transparent;
+}
+
+.city-info {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.info-item {
+  width: 40%;
+  height: 25%;
+  background-color: #3f51b5;
+  border-radius: 15px;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 5px;
+}
+
+.info-result {
+  font-size: 1.3rem;
+}
+
+.info-caption {
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: white;
+  height: 30%;
+}
+.tg td {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.tg th {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.tg .tg-0pky {
+  border-color: inherit;
+  text-align: left;
+  vertical-align: top;
+}
+.tg .tg-0lax {
+  text-align: left;
+  vertical-align: top;
 }

@@ -26,7 +26,7 @@ namespace WeatherApp.API.Services
             {
                 var requestUrl = _applicationData.OWMForecastUrl + $"q={cityName}&appid={_applicationData.OWMApiKey}";
                 var response = await _clientService.GetAsync<LongWeatherForecastModel>(requestUrl);
-
+                // http://api.openweathermap.org/data/2.5/forecast?q=Tczew&appid=f1b58a47aa129daa6330e7280a88e7b5
                 return response;
             }
             catch (InvalidOperationException ex)

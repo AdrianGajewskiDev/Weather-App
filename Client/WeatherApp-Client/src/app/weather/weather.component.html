@@ -28,18 +28,21 @@
     </div>
 
     <div class="card-upperContent" *ngIf="showError == false">
-      <button mat-fab color="primary" class="btn-goBack" (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        style="z-index: 100"
-        (click)="getFiveDaysForecast()"
-      >
-        <mat-icon>See a forecast for next 5 days</mat-icon>
-      </button>
-      <h1>{{ weatherDetails.name }}</h1>
+      <div class="upperContent-btns">
+        <button mat-fab color="primary" class="btn-goBack" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1>{{ weatherDetails.name }}</h1>
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-lngForecast"
+          (click)="getFiveDaysForecast()"
+        >
+          6 days forecast
+        </button>
+      </div>
+
       <img class="img-weatherCondition" [src]="currentWeatherImage" alt="" />
       <p>{{ weatherDetails.weather[0].description }}</p>
     </div>

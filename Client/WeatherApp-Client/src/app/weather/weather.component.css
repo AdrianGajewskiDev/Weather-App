@@ -95,15 +95,29 @@
   z-index: 100;
 }
 
-.btn-goBack {
-  position: absolute;
-  left: 5%;
-  top: 0;
-  z-index: 100;
-}
-
 .btn-inerror {
   top: 20% !important;
+}
+.upperContent-btns {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.btn-goBack {
+  position: relative;
+  left: 0;
+}
+
+.upperContent-btns h1 {
+  position: relative;
+  left: 25%;
+}
+
+.btn-lngForecast {
+  position: relative;
+  left: 50%;
+  padding: 5px;
 }
 
 @media (max-width: 767px) {

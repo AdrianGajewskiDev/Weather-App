@@ -4,10 +4,145 @@
   fxLayoutAlign="center center"
   class="container"
 >
-  <div class="chart-container">
-    <div class="chart">
-      <app-line-chart></app-line-chart>
+  <mat-spinner
+    *ngIf="loadingData == true"
+    class="loadingSpinner-table"
+  ></mat-spinner>
+  <div class="chart-container" *ngIf="loadingData == false">
+    <div class="left-content">
+      <div class="chart">
+        <app-line-chart [dataSets]="longWeatherModel"></app-line-chart>
+      </div>
+      <div class="weatherDetails">
+        <div class="details">
+          <div class="captions">
+            <h1>{{ currentWeatherDetails.dayName }}</h1>
+            <p>{{ currentWeatherDetails.dt_txt }}</p>
+            <h2>{{ currentWeatherDetails.weather[0].description }}</h2>
+          </div>
+          <div class="details-table">
+            <table class="tg">
+              <thead>
+                <tr>
+                  <th class="tg-0lax">Tremperature C</th>
+                  <th class="tg-0lax">Temperature F</th>
+                  <th class="tg-0lax">Pressure (hpa)</th>
+                  <th class="tg-0lax">Wind (m/s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tg-0lax">
+                    {{ currentWeatherDetails.main.tempC }}
+                  </td>
+                  <td class="tg-0lax">{{ currentWeatherDetails.main.temp }}</td>
+                  <td class="tg-0lax">
+                    {{ currentWeatherDetails.main.pressure }}
+                  </td>
+                  <td class="tg-0lax">
+                    {{ currentWeatherDetails.wind.speed }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="city-info">
+              <div class="info-item">
+                <h1 class="info-caption">City:</h1>
+                <h1 class="info-result">{{ longWeatherModel.city.name }}</h1>
+              </div>
+              <div class="info-item">
+                <h1 class="info-caption">Country:</h1>
+                <h1 class="info-result">{{ longWeatherModel.city.country }}</h1>
+              </div>
+              <div class="info-item">
+                <h1 class="info-caption">Population:</h1>
+                <h1 class="info-result">
+                  {{ longWeatherModel.city.population }}
+                </h1>
+              </div>
+              <div class="info-item">
+                <h1 class="info-caption">Timezone:</h1>
+                <h1 class="info-result">
+                  {{ longWeatherModel.city.timezone }}
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="image">
+          <img [src]="imageSrc" alt="Weather image" />
+        </div>
+      </div>
     </div>
-    <div class="details"></div>
+    <div class="right-content">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="Day">
+          <th mat-header-cell *matHeaderCellDef>Day</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="changeDayOfWeek(element.day)"
+            class="table-row"
+          >
+            {{ element.day }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TempC">
+          <th mat-header-cell *matHeaderCellDef>TempC</th>
+          <td mat-cell *matCellDef="let element">{{ element.tempC }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Pressure">
+          <th mat-header-cell *matHeaderCellDef>Pressure</th>
+          <td mat-cell *matCellDef="let element">{{ element.pressure }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
   </div>
+  <!--
+  <div class="chart-container">
+    <div class="chart" *ngIf="loadingData == false">
+      <div class="charts">
+        <app-line-chart c [dataSets]="longWeatherModel"></app-line-chart>
+      </div>
+      <div class="weather-details">
+        <p>{{ currentWeatherDetails.main.tempC }}</p>
+        <p>{{ currentWeatherDetails.dayName }}</p>
+        <p>{{ currentWeatherDetails.weatherForecastDateTime }}</p>
+      </div>
+    </div>
+    <div class="details" *ngIf="loadingData == false">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
+        <ng-container matColumnDef="Day">
+          <th mat-header-cell *matHeaderCellDef>Day</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="changeDayOfWeek(element.day)"
+          >
+            {{ element.day }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TempC">
+          <th mat-header-cell *matHeaderCellDef>TempC</th>
+          <td mat-cell *matCellDef="let element">{{ element.tempC }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Pressure">
+          <th mat-header-cell *matHeaderCellDef>Pressure</th>
+          <td mat-cell *matCellDef="let element">{{ element.pressure }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div> -->
 </div>

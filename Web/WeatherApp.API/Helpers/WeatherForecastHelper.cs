@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WeatherApp.API.Models;
 
 namespace WeatherApp.API.Helpers
@@ -25,5 +26,9 @@ namespace WeatherApp.API.Helpers
             return items;
         }
 
+        public static string GetDayNameFromDate(DateTime date)
+        {
+            return date.DayOfWeek.ToString();
+        }
     }
 }

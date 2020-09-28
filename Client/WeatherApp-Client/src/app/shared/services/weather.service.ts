@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { WeatherModel } from "../models/weather.model";
 import { Response } from "../models/response";
 import Coord from "../models/Coord";
+import { LongWeatherForecastModel } from "../models/longWeatherForecastModel";
 
 @Injectable()
 export class WeatherService {
@@ -32,6 +33,14 @@ export class WeatherService {
           lon: coord.lon.toString(),
         },
       }
+    );
+  }
+
+  get6DaysWeatherForecast(
+    cityName: string
+  ): Observable<Response<LongWeatherForecastModel>> {
+    return this.httpClient.get<Response<LongWeatherForecastModel>>(
+      this.baseUrl + "longWeatherForecast/" + cityName
     );
   }
 }

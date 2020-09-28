@@ -180,6 +180,6 @@ export class WeatherComponent implements OnInit {
   }
 
   getFiveDaysForecast(): void {
-    this.router.navigateByUrl("/forecast/Tczew");
+    this.router.navigateByUrl("/forecast/" + this.weatherDetails.name);
   }
 }
